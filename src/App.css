@@ -48,7 +48,7 @@ a {
 
 .main-content {
   flex: 1;
-  padding-top: 140px; /* Space for fixed navbar */
+  padding-top: 110px; /* Reduced space for fixed navbar */
 }
 
 /* Base UI Components shared across pages */
@@ -129,4 +129,138 @@ a {
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+/* Base Responsive Overrides */
+@media (max-width: 1024px) {
+  .section-title {
+    font-size: 2.2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .main-content {
+    padding-top: 80px; /* Reduced space on mobile */
+  }
+  
+  .section-title {
+    font-size: 1.8rem;
+    margin-bottom: 0.8rem;
+  }
+  
+  .section-subtitle {
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .page-container {
+    padding: 1.5rem 5%;
+  }
+
+  .btn-primary, .btn-outline {
+    padding: 0.6rem 1.2rem;
+    font-size: 0.9rem;
+  }
+
+  /* Global Grid Adjustments */
+  .course-grid-container {
+    grid-template-columns: 1fr !important;
+    gap: 20px !important;
+  }
+
+  /* Global Detail View Adjustments */
+  .detail-grid {
+    grid-template-columns: 1fr !important;
+    gap: 30px !important;
+    padding: 30px 5% !important;
+  }
+
+  .sidebar-card {
+    position: static !important;
+    width: 100% !important;
+    margin-top: 30px !important;
+  }
+
+  /* Hero & Banner Overrides */
+  .course-hero, .academy-banner, .service-banner {
+    padding: 40px 5% !important;
+  }
+
+  .course-hero h1, .academy-content h1 {
+    font-size: 1.8rem !important;
+  }
+
+  .course-meta {
+    flex-direction: column !important;
+    gap: 12px !important;
+  }
+
+  /* Grid/Facility Items */
+  .facility-grid {
+    grid-template-columns: 1fr !important;
+    gap: 20px !important;
+  }
+  
+  .facility-item {
+    flex-direction: column !important;
+    text-align: center !important;
+  }
+  
+  .f-icon {
+    margin: 0 auto 15px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .section-title {
+    font-size: 1.6rem;
+  }
+  
+  .course-card {
+    padding: 15px !important;
+  }
+  
+  .card-top {
+    flex-direction: column !important;
+    text-align: center !important;
+    gap: 15px !important;
+  }
+
+  .card-logo {
+    margin: 0 auto !important;
+  }
+
+  /* Form & Dashboard Mobile */
+  .enroll-layout {
+    grid-template-columns: 1fr !important;
+    border-radius: 12px !important;
+  }
+  
+  .enroll-info {
+    padding: 30px 20px !important;
+  }
+
+  .enroll-form-container {
+    padding: 30px 20px !important;
+  }
+
+  .admin-header {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 20px !important;
+  }
+
+  .kpi-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  table th, table td {
+    padding: 8px !important;
+    font-size: 0.85rem !important;
+  }
+
+  .modal-content {
+    padding: 20px !important;
+    width: 95% !important;
+  }
 }

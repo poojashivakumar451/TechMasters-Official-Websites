@@ -1,5 +1,5 @@
 import React from 'react';
-import { ArrowLeft, Layout, Server, Database as DbIcon, ShieldCheck, Cloud, Code, Globe, Zap, Terminal } from 'lucide-react';
+import { ArrowLeft, Layout, Server, Database as DbIcon, ShieldCheck, Code, Globe, Zap, Terminal } from 'lucide-react';
 
 const PythonFullStack = () => {
   const handleBack = () => {

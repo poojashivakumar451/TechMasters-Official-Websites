@@ -92,29 +92,7 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Placement Success Section */}
-      <section className="page-container placement-section">
-        <div className="section-header">
-          <h2 className="section-title">Our Success Stories</h2>
-          <p className="section-subtitle">We take pride in our alumni who have successfully cracked placements at global tech giants.</p>
-        </div>
-        
-        <div className="placement-grid">
-          <div className="placement-card text-only">
-            <div className="placement-info">
-              <h3>PRATIKHSA KALE</h3>
-              <div className="achievement-tag">Cracked TCS NQT Ninja</div>
-            </div>
-          </div>
 
-          <div className="placement-card text-only">
-            <div className="placement-info">
-              <h3>RAVINA MODDEWAR</h3>
-              <div className="achievement-tag">Placed at Cognizant</div>
-            </div>
-          </div>
-        </div>
-      </section>
       {/* Training Ecosystem Section */}
       <section className="page-container ecosystem-section">
         <div className="section-header">

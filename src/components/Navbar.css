@@ -182,23 +182,28 @@
 }
 
 @media (max-width: 992px) {
-  .mobile-menu-btn {
-    display: block;
-    z-index: 1001;
+  .navbar-container {
+    padding: 0 4%;
+  }
+
+  .navbar-logo-img {
+    max-height: 55px;
   }
 
   .nav-menu {
     position: fixed;
     top: 0;
     right: -100%;
-    width: 300px;
+    width: 80%;
+    max-width: 300px;
     height: 100vh;
-    background: white;
-    box-shadow: -10px 0 30px rgba(0,0,0,0.1);
+    background: #0f172a !important; /* DARK BACKGROUND - explicitly set */
+    box-shadow: -15px 0 35px rgba(0,0,0,0.5);
     flex-direction: column;
-    padding: 100px 30px 40px;
-    transition: 0.4s ease-in-out;
+    padding: 90px 25px 40px;
+    transition: 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
     align-items: flex-start;
+    z-index: 999;
   }
 
   .nav-menu.active {
@@ -208,25 +213,66 @@
   .nav-list {
     flex-direction: column;
     width: 100%;
-    gap: 1.5rem;
+    gap: 0.8rem;
+  }
+
+  .nav-item {
+    width: 100%;
   }
 
   .nav-link {
-    font-size: 1.1rem;
-    display: block;
+    font-size: 1.15rem;
+    display: block !important;
     width: 100%;
-    padding: 10px 0;
-    border-bottom: 1px solid #f1f5f9;
+    padding: 15px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    color: #f8fafc !important; /* EXPLICIT WHITE TEXT IN MOBILE MENU */
+    font-weight: 600;
+  }
+
+  .active-link {
+    color: #3b82f6 !important; /* Keep blue for active */
+  }
+
+  .active-link::after {
+    width: 40px !important; /* Short line for active on mobile */
   }
   
   .nav-actions {
-    margin-top: 2rem;
+    margin-top: 2.5rem;
     width: 100%;
   }
 
   .btn-enroll {
     justify-content: center;
     width: 100%;
-    padding: 1rem;
+    padding: 1.1rem;
+    font-size: 1.1rem;
+  }
+
+  .mobile-menu-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.15);
+    color: white !important; /* White icon always */
+    z-index: 1001;
+    cursor: pointer;
+  }
+}
+
+@media (max-width: 480px) {
+  .nav-logo-text.main {
+    font-size: 1rem;
+  }
+  .nav-logo-text.sub {
+    font-size: 0.6rem;
+    letter-spacing: 1px;
+  }
+  .navbar-logo-img {
+    max-height: 45px;
   }
 }

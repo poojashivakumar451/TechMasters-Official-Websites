@@ -4,7 +4,7 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 100px 0 60px;
+  padding: 40px 0 60px;
   overflow: hidden;
   background: #fff;
 }
@@ -244,121 +244,8 @@
   box-shadow: 0 15px 30px rgba(37, 99, 235, 0.3);
 }
 
-/* Placement Section */
-.placement-section {
-  padding: 60px 5%; /* Reduced from 100px */
-}
-
-.placement-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 24px; /* Reduced from 40px */
-  margin-top: 40px; /* Reduced from 60px */
-}
-
-.placement-card.text-only {
-  justify-content: center;
-  text-align: center;
-  padding: 30px; /* Reduced padding */
-  border-radius: 20px;
-}
-
-.placement-date {
-  font-size: 0.85rem;
-  font-weight: 700;
-  color: #64748b;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  display: block;
-  margin-bottom: 12px;
-}
-
-.training-stream {
-  color: #3b82f6;
-  font-weight: 700;
-  margin-bottom: 16px;
-  font-size: 1rem;
-}
-
-.student-skills {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 8px;
-  list-style: none;
-  padding: 0;
-  margin-top: 20px;
-}
-
-.student-skills li {
-  background: #f1f5f9;
-  color: #475569;
-  padding: 4px 12px;
-  border-radius: 100px;
-  font-size: 0.8rem;
-  font-weight: 600;
-}
-
-.student-img-wrapper {
-  position: relative;
-  width: 140px;
-  height: 140px;
-  flex-shrink: 0;
-}
-
-.student-img {
-  width: 100%;
-  height: 100%;
-  border-radius: 20px;
-  object-fit: cover;
-  border: 4px solid #f8fafc;
-  box-shadow: 0 10px 20px rgba(0,0,0,0.05);
-}
-
-.company-logo-tag {
-  position: absolute;
-  bottom: -10px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: #123e72;
-  color: white;
-  font-size: 0.65rem;
-  font-weight: 800;
-  padding: 6px 14px;
-  border-radius: 30px;
-  white-space: nowrap;
-  letter-spacing: 0.5px;
-}
-
-.placement-info h3 {
-  font-size: 1.4rem;
-  color: #0f172a;
-  margin-bottom: 5px;
-  font-weight: 800;
-}
-
-.batch-info {
-  color: #64748b;
-  font-size: 0.85rem;
-  font-weight: 600;
-  margin-bottom: 15px;
-}
-
-.achievement-tag {
-  display: inline-block;
-  background: #f0fdf4;
-  color: #166534;
-  font-size: 0.8rem;
-  font-weight: 700;
-  padding: 8px 16px;
-  border-radius: 10px;
-  border: 1px solid #dcfce7;
-}
-
 @media (max-width: 992px) {
   .flex-discount { flex-direction: column; padding: 40px; text-align: center; }
-  .placement-card { flex-direction: column; text-align: center; }
-  .student-img-wrapper { margin-bottom: 10px; }
 }
 
 /* Ecosystem Section */
@@ -594,15 +481,50 @@
   background: rgba(59, 130, 246, 0.4);
 }
 
+@media (max-width: 1024px) {
+  .hero-title-alt { font-size: 3.5rem; }
+  .hero-container { gap: 40px; }
+}
+
 @media (max-width: 992px) {
-  .hero-title { font-size: 3.5rem; }
-  .flex-pathway { flex-direction: column; }
+  .hero-section { min-height: auto; padding: 120px 0 60px; }
+  .hero-container { flex-direction: column; text-align: center; width: 95%; padding: 0 5%; }
+  .hero-left { order: 1; }
+  .hero-right { order: 2; width: 100%; margin-top: 40px; }
+  .hero-desc-alt { margin: 0 auto 40px; }
+  .hero-actions-alt { justify-content: center; }
+  .flex-discount { flex-direction: column; padding: 40px; text-align: center; }
+  .flex-pathway { flex-direction: column; text-align: center; }
+  .pathway-list li { justify-content: center; text-align: left; }
   .pathway-image-placeholder { width: 100%; height: 400px; margin-top: 40px; }
 }
 
 @media (max-width: 768px) {
-  .hero-title { font-size: 2.5rem; }
-  .hero-stats { flex-direction: column; gap: 20px; padding: 20px; }
-  .stat-divider { width: 100%; height: 1px; }
-  .hero-actions { flex-direction: column; }
+  .hero-title-alt { font-size: 2.8rem; letter-spacing: -1px; }
+  .hero-badge-alt { margin-bottom: 20px; font-size: 0.75rem; }
+  .hero-images-grid { gap: 15px; }
+  .hero-img-card { height: 300px; border-radius: 16px; }
+  .hero-img-card:nth-child(2) { margin-bottom: 30px; }
+  .features-grid { grid-template-columns: 1fr; }
+  .feature-card { padding: 30px; }
+  .discount-content h2 { font-size: 1.6rem; }
+  .btn-discount { width: 100%; justify-content: center; }
+  .ecosystem-grid { grid-template-columns: 1fr; }
+  .expertise-strip { border-radius: 20px; gap: 15px; text-align: center; padding: 20px; }
+  .pathway-text h2 { font-size: 2rem; }
 }
+
+@media (max-width: 480px) {
+  .hero-title-alt { 
+    font-size: 2.2rem; 
+    line-height: 1.2;
+    margin-bottom: 20px;
+  }
+  .hero-desc-alt { font-size: 1rem; }
+  .hero-actions-alt { flex-direction: column; width: 100%; gap: 12px; }
+  .btn-dark, .btn-stories { width: 100%; padding: 15px 25px; font-size: 1rem; }
+  .card-label { font-size: 0.9rem; bottom: 15px; left: 15px; }
+  .flex-discount { padding: 30px 20px; }
+  .mockup-screen { width: 95%; height: 300px; }
+}
+
