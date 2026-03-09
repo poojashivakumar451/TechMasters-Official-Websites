@@ -27,7 +27,7 @@ const Home = () => {
               Empowering Future <span className="text-blue">Technology Leaders</span>
             </h1>
             <p className="hero-desc-alt">
-              Elevate your career with the most advanced, industry-driven training in the region. Bridge the gap between theory and high-performance engineering.
+              Empower your career with industry-driven training from Techmaster Software Private Limited. We bridge the gap between academic learning and industry expectations.
             </p>
             <div className="hero-actions-alt">
               <NavLink to="/courses" className="btn-dark">
@@ -43,50 +43,13 @@ const Home = () => {
             <div className="hero-images-grid">
               <div className="hero-img-card">
                 <img src="/gallery-1.jpg" alt="Live Projects" />
-                <div className="card-label">Industrial R&D</div>
+                <div className="card-label">live projects</div>
               </div>
               <div className="hero-img-card">
                 <img src="/gallery-3.jpg" alt="Mentor Led" />
-                <div className="card-label">Elite Mentorship</div>
+                <div className="card-label">mentor led</div>
               </div>
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Trust & Partners Strip */}
-      <section className="trust-strip">
-        <div className="page-container">
-          <p className="trust-label">OUR ALUMNI WORK AT LEADING INNOVATORS</p>
-          <div className="logo-grid-alt">
-            <div className="logo-placeholder">GOOGLE</div>
-            <div className="logo-placeholder">MICROSOFT</div>
-            <div className="logo-placeholder">AMAZON</div>
-            <div className="logo-placeholder">META</div>
-            <div className="logo-placeholder">TCS</div>
-            <div className="logo-placeholder">INFOSYS</div>
-          </div>
-        </div>
-      </section>
-
-      {/* Stats Section */}
-      <section className="stats-section">
-        <div className="page-container stats-grid">
-          <div className="stat-card">
-            <span className="stat-number">10K+</span>
-            <span className="stat-desc">Alumni Globally</span>
-          </div>
-          <div className="stat-card">
-            <span className="stat-number">95%</span>
-            <span className="stat-desc">Placement Success</span>
-          </div>
-          <div className="stat-card">
-            <span className="stat-number">150+</span>
-            <span className="stat-desc">Hiring Partners</span>
-          </div>
-          <div className="stat-card">
-            <span className="stat-number">25+</span>
-            <span className="stat-desc">Elite Programs</span>
           </div>
         </div>
       </section>
@@ -94,42 +57,25 @@ const Home = () => {
       {/* Features Section */}
       <section className="page-container features-section">
         <div className="section-header">
-          <h2 className="section-title">Beyond Traditional Learning</h2>
-          <p className="section-subtitle">We don't just teach code; we engineer professional mindsets ready for the global software industry.</p>
+          <h2 className="section-title">Why Choose Techmaster?</h2>
+          <p className="section-subtitle">We don't just teach code; we build professional software engineers ready for the modern tech ecosystem.</p>
         </div>
         
         <div className="features-grid">
           <div className="feature-card">
             <div className="feature-icon"><Code size={28} /></div>
-            <h3>Production Standards</h3>
-            <p>Master CI/CD, unit testing, and scalable architecture pattern utilized by top-tier engineering firms.</p>
+            <h3>Industry Curriculum</h3>
+            <p>Our syllabus is continuously updated to match the demands of top tech companies globally.</p>
           </div>
           <div className="feature-card">
             <div className="feature-icon"><Briefcase size={28} /></div>
-            <h3>Project Portfolios</h3>
-            <p>Build real-world assets. Our students deploy production-ready apps that impress recruiters instantly.</p>
+            <h3>Real-Time Projects</h3>
+            <p>Build an impressive portfolio by working on scalable, real-world application architectures.</p>
           </div>
           <div className="feature-card">
             <div className="feature-icon"><Award size={28} /></div>
-            <h3>Strategic Placement</h3>
-            <p>Access our exclusive network of 150+ partners with dedicated mock interview and resume workshops.</p>
-          </div>
-        </div>
-      </section>
-
-      {/* Tech Stack Strip - Knowledgeable Content */}
-      <section className="tech-stack-section">
-        <div className="page-container">
-          <h3 className="sub-heading">MASTER THE MODERN TECH STACK</h3>
-          <div className="tech-icons-row">
-            <div className="tech-tag">React.js</div>
-            <div className="tech-tag">Node.js</div>
-            <div className="tech-tag">Python</div>
-            <div className="tech-tag">Java</div>
-            <div className="tech-tag">AWS</div>
-            <div className="tech-tag">Docker</div>
-            <div className="tech-tag">Kubernetes</div>
-            <div className="tech-tag">TensorFlow</div>
+            <h3>Expert Mentors</h3>
+            <p>Learn directly from professionals who have built enterprise software and understand production standards.</p>
           </div>
         </div>
       </section>
@@ -138,14 +84,13 @@ const Home = () => {
       <section className="discount-banner">
         <div className="page-container flex-discount">
           <div className="discount-content">
-            <span className="badge-new">Strategic Enrollment</span>
-            <h2>Secure Your Seat with <span className="text-highlight">10% DISCOUNT</span></h2>
-            <p>Invest in your future. Join the elite cohort for 2025-26 and transform your technical career path.</p>
+            <span className="badge-new">Limited Time Offer</span>
+            <h2>Get <span className="text-highlight">10% DISCOUNT</span> on Early Registrations!</h2>
+            <p>Start your journey with Techmasters Trainings and transform your career today.</p>
           </div>
-          <NavLink to="/enroll" className="btn-discount">Get Early Access <ArrowRight size={18}/></NavLink>
+          <NavLink to="/enroll" className="btn-discount">Register Now <ArrowRight size={18}/></NavLink>
         </div>
       </section>
-
 
       {/* Training Ecosystem Section */}
       <section className="page-container ecosystem-section">
@@ -158,36 +103,36 @@ const Home = () => {
           <div className="eco-card">
             <h3>Basic Programming</h3>
             <ul className="eco-list">
-              <li>C & C++ Mastery</li>
+              <li>C &amp; C++ Mastery</li>
               <li>Java Fundamentals</li>
               <li>Python Core / OOPs</li>
-              <li>SQL & Database Basics</li>
+              <li>SQL &amp; Database Basics</li>
             </ul>
           </div>
           <div className="eco-card">
             <h3>Advanced Programming</h3>
             <ul className="eco-list">
               <li>DSA (LeetCode Patterns)</li>
-              <li>Spring Boot & Hibernate</li>
-              <li>Flask & Django Frameworks</li>
+              <li>Spring Boot &amp; Hibernate</li>
+              <li>Flask &amp; Django Frameworks</li>
               <li>RESTful API Design</li>
             </ul>
           </div>
           <div className="eco-card">
-            <h3>Full Stack & Cloud</h3>
+            <h3>Full Stack &amp; Cloud</h3>
             <ul className="eco-list">
               <li>MERN Stack Mastery</li>
-              <li>AWS & Azure Essentials</li>
-              <li>Docker & Kubernetes</li>
+              <li>AWS &amp; Azure Essentials</li>
+              <li>Docker &amp; Kubernetes</li>
               <li>CI/CD Pipelines</li>
             </ul>
           </div>
           <div className="eco-card">
-            <h3>AI & Data Science</h3>
+            <h3>AI &amp; Data Science</h3>
             <ul className="eco-list">
               <li>Machine Learning models</li>
               <li>Natural Language Processing</li>
-              <li>Pandas & NumPy Analysis</li>
+              <li>Pandas &amp; NumPy Analysis</li>
               <li>Deep Learning / Neural Nets</li>
             </ul>
           </div>
@@ -203,84 +148,32 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Industry Insights - Knowledgeable Section */}
-      <section className="insight-section">
-        <div className="page-container flex-insight">
-          <div className="insight-image">
-             <div className="glass-card-insight">
-                <div className="insight-badge">KNOWLEDGE HUB</div>
-                <h4>The 2026 Skills Gap</h4>
-                <p>Industry data shows a 45% increase in demand for Engineers who master both <strong>DevOps</strong> and <strong>AI Integration</strong>.</p>
-                <div className="insight-line"></div>
-                <ul className="learning-tips">
-                  <li>Mastering State Management</li>
-                  <li>Efficient API Design</li>
-                  <li>Cloud Native Architectures</li>
-                </ul>
-             </div>
-          </div>
-          <div className="insight-text">
-            <h2 className="section-title" style={{textAlign: 'left'}}>Career Strategic Insights</h2>
-            <p className="insight-para">Our training methodology is built on <strong>Three Pillars of Excellence</strong> that ensure our students are not just applicants, but top-priority candidates.</p>
-            
-            <div className="pillar-row">
-              <div className="pillar">
-                <div className="pillar-num">01</div>
-                <div>
-                  <h4>Technical Depth</h4>
-                  <p>Mastering core syntax isn't enough. We dive deep into engine internals and performance tuning.</p>
-                </div>
-              </div>
-              <div className="pillar">
-                <div className="pillar-num">02</div>
-                <div>
-                  <h4>System Design</h4>
-                  <p>Learn to think at scale. Our curriculum includes Distributed Systems and Microservices patterns.</p>
-                </div>
-              </div>
-              <div className="pillar">
-                <div className="pillar-num">03</div>
-                <div>
-                  <h4>Professional Ethics</h4>
-                  <p>Understand Agile, Code Reviews, and the soft skills required to lead engineering teams.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* Pathway Section */}
       <section className="pathway-section">
         <div className="page-container flex-pathway">
           <div className="pathway-text">
-            <h2>Your Elite Career Pipeline</h2>
-            <p className="pathway-desc">We operate as a high-performance training ground. Our 4-stage pipeline is designed for maximum career impact.</p>
+            <h2>Your Pathway to Success</h2>
+            <p className="pathway-desc">Follow our structured approach to go from a beginner to a seasoned professional developer.</p>
             
             <ul className="pathway-list">
-              <li><CheckCircle size={20} className="check-icon"/> <span><strong>Selection:</strong> Rigorous screening to ensure dedicated cohorts.</span></li>
-              <li><CheckCircle size={20} className="check-icon"/> <span><strong>immersion:</strong> 600+ hours of lab-driven intensive development.</span></li>
-              <li><CheckCircle size={20} className="check-icon"/> <span><strong>Validation:</strong> Industry-standard code reviews and testing.</span></li>
-              <li><CheckCircle size={20} className="check-icon"/> <span><strong>Deployment:</strong> Strategic placement within our corporate ecosystem.</span></li>
+              <li><CheckCircle size={20} className="check-icon"/> <span>Identify your interest &amp; enroll in a specialized course.</span></li>
+              <li><CheckCircle size={20} className="check-icon"/> <span>Learn through hands-on sessions and interactive modules.</span></li>
+              <li><CheckCircle size={20} className="check-icon"/> <span>Build 8+ production-ready projects for your portfolio.</span></li>
+              <li><CheckCircle size={20} className="check-icon"/> <span>Receive interview prep and dedicated placement assistance.</span></li>
             </ul>
             
             <NavLink to="/enroll" className="btn-primary" style={{marginTop: '2rem'}}>
-              Join The Pipeline <ChevronRight size={18} />
+              Start Your Journey <ChevronRight size={18} />
             </NavLink>
           </div>
           <div className="pathway-image-placeholder">
             <div className="glass-shape shape-1"></div>
             <div className="glass-shape shape-2"></div>
-            <div className="mockup-screen">
-              <div className="window-dots"><span></span><span></span><span></span></div>
-              <div className="code-lines">
-                <div className="cl" style={{width: '60%'}}></div>
-                <div className="cl cl-blue" style={{width: '80%'}}></div>
-                <div className="cl" style={{width: '40%'}}></div>
-                <div className="cl" style={{width: '90%'}}></div>
-                <div className="cl cl-blue" style={{width: '70%'}}></div>
+            <div className="pathway-img-card">
+              <img src="/gallery-2.jpg" alt="Student Success" />
+              <div className="pathway-img-overlay">
+                <span className="pathway-img-label">Our Students in Action</span>
               </div>
-              <div className="success-badge-mockup">PIPELINE ACTIVE</div>
             </div>
           </div>
         </div>
