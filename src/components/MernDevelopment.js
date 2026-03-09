@@ -1,5 +1,5 @@
 import React from 'react';
-import { ArrowLeft, Layout, Server, Database as DbIcon, ShieldCheck, Cloud, Blocks, Code, Globe, Zap, Terminal } from 'lucide-react';
+import { ArrowLeft, Layout, Server, Database as DbIcon, ShieldCheck, Cloud, Blocks, Code, Globe, Zap } from 'lucide-react';
 
 const MernDevelopment = () => {
   const handleBack = () => {
