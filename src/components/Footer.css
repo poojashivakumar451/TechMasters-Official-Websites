@@ -15,21 +15,7 @@
   padding: 0 5%;
 }
 
-.footer-logo {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 1.5rem;
-}
 
-.footer-logo-img {
-  max-width: 180px;
-  height: auto;
-  display: block;
-  background-color: white;
-  border-radius: 8px;
-  padding: 8px;
-}
 
 .footer-about {
   color: #94a3b8;
@@ -124,6 +110,11 @@
   margin-top: 3px;
 }
 
+/* Invisible spacer to keep 2nd phone number aligned */
+.c-icon-hidden {
+  visibility: hidden;
+}
+
 .contact-link {
   display: flex;
   align-items: flex-start;
@@ -149,6 +140,64 @@
   margin-top: 4rem;
   color: #64748b;
   font-size: 0.9rem;
+}
+
+/* ─── WhatsApp Section ────────────────────────────────────── */
+.wa-section {
+  margin-top: 1.4rem;
+  padding-top: 1.2rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.wa-heading {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  color: #25d366;
+  font-size: 0.82rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  margin: 0 0 0.75rem;
+}
+
+.wa-numbers {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+.wa-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0.55rem 0.9rem;
+  border-radius: 10px;
+  background: rgba(37, 211, 102, 0.08);
+  border: 1px solid rgba(37, 211, 102, 0.2);
+  color: #86efac;
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: all 0.25s ease;
+}
+
+.wa-btn:hover {
+  background: rgba(37, 211, 102, 0.18);
+  border-color: rgba(37, 211, 102, 0.5);
+  color: #ffffff;
+  transform: translateX(4px);
+  box-shadow: 0 4px 16px rgba(37, 211, 102, 0.15);
+}
+
+.wa-btn svg {
+  flex-shrink: 0;
+  color: #25d366;
+  transition: transform 0.25s ease;
+}
+
+.wa-btn:hover svg {
+  transform: scale(1.15);
 }
 
 /* ─── Phone Modal ─────────────────────────────────────────── */

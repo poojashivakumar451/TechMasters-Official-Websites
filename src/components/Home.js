@@ -8,21 +8,22 @@ const Home = () => {
   const heroRef = useRef(null);
 
   useEffect(() => {
+    // Restoring GSAP animations as per previous version
     const tl = gsap.timeline();
-    tl.fromTo('.hero-badge', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.6, ease: 'power3.out' })
-      .fromTo('.hero-title', { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' }, '-=0.4')
-      .fromTo('.hero-desc', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' }, '-=0.6')
-      .fromTo('.hero-actions', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' }, '-=0.6');
+    tl.fromTo('.hero-badge-alt', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.6, ease: 'power3.out' })
+      .fromTo('.hero-title-alt', { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' }, '-=0.4')
+      .fromTo('.hero-desc-alt', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' }, '-=0.6')
+      .fromTo('.hero-actions-alt', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' }, '-=0.6');
   }, []);
 
   return (
     <div className="home-wrapper fade-in">
-      {/* Hero Section */}
+      {/* Hero Section - Restored to Previous Stable Design */}
       <section className="hero-section" ref={heroRef}>
         <div className="mesh-bg"></div>
         <div className="hero-container">
           <div className="hero-left">
-            <div className="hero-badge-alt">BATCH 2025-26 — ENROLLMENT OPEN</div>
+            <div className="hero-badge-alt">BATCH 2025-26 — REGISTRATIONS OPEN</div>
             <h1 className="hero-title-alt">
               Empowering Future <span className="text-blue">Technology Leaders</span>
             </h1>
@@ -43,11 +44,11 @@ const Home = () => {
             <div className="hero-images-grid">
               <div className="hero-img-card">
                 <img src="/gallery-1.jpg" alt="Live Projects" />
-                <div className="card-label">live projects</div>
+                <div className="card-label">Live Projects</div>
               </div>
               <div className="hero-img-card">
                 <img src="/gallery-3.jpg" alt="Mentor Led" />
-                <div className="card-label">mentor led</div>
+                <div className="card-label">Mentor Led</div>
               </div>
             </div>
           </div>
@@ -80,9 +81,9 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Discount Banner */}
+      {/* Discount Banner - Stylized Version (Image 1) */}
       <section className="discount-banner">
-        <div className="page-container flex-discount">
+        <div className="flex-discount">
           <div className="discount-content">
             <span className="badge-new">Limited Time Offer</span>
             <h2>Get <span className="text-highlight">10% DISCOUNT</span> on Early Registrations!</h2>
@@ -139,12 +140,7 @@ const Home = () => {
         </div>
 
         <div className="expertise-strip">
-          <div className="expertise-item">EXPERT PREP:</div>
-          <div className="expertise-item">TCS NQT</div>
-          <div className="expertise-item">TCS CODEVITA</div>
-          <div className="expertise-item">CAPGEMINI EXCELLER</div>
-          <div className="expertise-item">COGNIZANT</div>
-          <div className="expertise-item">WIPRO ELITE</div>
+          <div className="expertise-item">EXPERT PREP: TCS NQT, TCS CODEVITA, CAPGEMINI EXCELLER, COGNIZANT, WIPRO ELITE</div>
         </div>
       </section>
 

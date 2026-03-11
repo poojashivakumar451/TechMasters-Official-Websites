@@ -1,5 +1,5 @@
 import React from 'react';
-import { Award, Users, Target, BookOpen } from 'lucide-react';
+import { Target, BookOpen } from 'lucide-react';
 
 const About = () => {
   return (

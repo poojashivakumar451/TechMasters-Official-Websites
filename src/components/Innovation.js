@@ -1,9 +1,11 @@
-import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { ArrowLeft, Lightbulb, Sparkles, Target, Zap, Rocket, Search, Microscope, RefreshCcw, ShieldCheck, TrendingUp, Trophy } from 'lucide-react';
 
 const Innovation = () => {
+  const navigate = useNavigate();
+
   const handleBack = () => {
-    window.location.href = '/services';
+    navigate('/services');
   };
 
   const thinkingModel = [

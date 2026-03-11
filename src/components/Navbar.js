@@ -40,10 +40,7 @@ const Navbar = () => {
       <div className="navbar-container">
         <NavLink to="/" className="nav-logo">
           <img src="/logo.jpg" alt="TechMasters Logo" className="navbar-logo-img" />
-          <div className="nav-logo-text-wrapper">
-             <span className="nav-logo-text main">TechMasters</span>
-             <span className="nav-logo-text sub">Trainings</span>
-          </div>
+          <span className="logo-text">Techmasters Trainings</span>
         </NavLink>
 
         <div className="mobile-menu-btn" onClick={() => setIsOpen(!isOpen)}>

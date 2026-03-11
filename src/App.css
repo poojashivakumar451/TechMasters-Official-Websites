@@ -48,8 +48,14 @@ a {
 
 .main-content {
   flex: 1;
-  padding-top: 110px; /* Reduced space for fixed navbar */
+  padding-top: 80px; /* Aligned with fixed navbar height to remove gap */
 }
+
+.dashboard-mode {
+  flex: 1;
+  padding-top: 0;
+}
+
 
 /* Base UI Components shared across pages */
 .section-title {
@@ -58,6 +64,7 @@ a {
   margin-bottom: 1rem;
   font-weight: 800;
   color: var(--primary);
+  padding: 0 15px; /* Added padding to prevent text touching edges */
 }
 
 .section-subtitle {
@@ -140,8 +147,9 @@ a {
 
 @media (max-width: 768px) {
   .main-content {
-    padding-top: 80px; /* Reduced space on mobile */
+    padding-top: 70px; /* Tightened for mobile */
   }
+
   
   .section-title {
     font-size: 1.8rem;
@@ -210,12 +218,15 @@ a {
     margin: 0 auto 15px !important;
   }
 }
-
 @media (max-width: 480px) {
+  .page-container {
+    padding: 1.5rem 15px;
+  }
+
   .section-title {
     font-size: 1.6rem;
+    line-height: 1.3;
   }
-  
   .course-card {
     padding: 15px !important;
   }
@@ -228,6 +239,16 @@ a {
 
   .card-logo {
     margin: 0 auto !important;
+  }
+
+  .card-bottom {
+    justify-content: center !important;
+    padding: 15px !important;
+  }
+
+  .view-btn {
+    width: 100% !important;
+    text-align: center !important;
   }
 
   /* Form & Dashboard Mobile */

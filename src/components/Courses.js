@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { ArrowLeft, Clock, MapPin, Briefcase, Monitor } from 'lucide-react';
 
-const Courses = ({ setActivePage, adminCourses = [] }) => {
+const Courses = ({ adminCourses = [] }) => {
+  const navigate = useNavigate();
   const [selectedCourse, setSelectedCourse] = useState(null);
+
 
   const companyName = "TechMasters Trainings private limited";
   const location = "Bidar, Karnataka.";
@@ -478,9 +481,8 @@ const Courses = ({ setActivePage, adminCourses = [] }) => {
   const allCourses = generateExhaustiveData();
 
   const handleEnroll = (courseName) => {
-    if (setActivePage) setActivePage('Enroll');
     sessionStorage.setItem('preselectedCourse', courseName);
-    window.location.href = '/enroll';
+    navigate('/enroll');
   };
 
   const handleBackToGrid = () => {
@@ -551,6 +553,14 @@ const Courses = ({ setActivePage, adminCourses = [] }) => {
             font-size: 3rem;
             margin-bottom: 1.5rem;
             color: white;
+          }
+          @media (max-width: 768px) {
+            .course-hero h1 { font-size: 2rem; }
+            .course-hero { padding: 40px 5%; }
+          }
+          @media (max-width: 480px) {
+            .course-hero h1 { font-size: 1.7rem; }
+            .meta-item { width: 100%; justify-content: center; }
           }
           .course-meta {
             display: flex;
@@ -810,9 +820,16 @@ const Courses = ({ setActivePage, adminCourses = [] }) => {
       <style>{`
         .course-grid-container {
           display: grid;
-          grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
-          gap: 30px;
+          grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+          gap: 25px;
           margin-top: 40px;
+        }
+        @media (max-width: 480px) {
+          .course-grid-container {
+            grid-template-columns: 1fr;
+            gap: 20px;
+            padding: 0 10px;
+          }
         }
         .course-card {
           background: white;

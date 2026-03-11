@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Target, Briefcase, Rocket, FlaskConical, Zap, Trophy, MapPin, Monitor } from 'lucide-react';
 
 const Service = () => {
+  const navigate = useNavigate();
   const [selectedTag, setSelectedTag] = useState(null);
+
 
   const companyName = "TechMasters Software Private Limited";
   const location = "Bidar (Karnataka)";
@@ -273,58 +276,44 @@ const Service = () => {
                     key={j} 
                     className="srv-tag" 
                     onClick={() => {
-                      if (tag.toUpperCase() === "TCS NQT") {
-                        window.location.href = '/services/tcs-nqt';
-                      } else if (tag.toUpperCase() === "TCS CODEVITA") {
-                        window.location.href = '/services/tcs-codevita';
-                      } else if (tag.toUpperCase() === "CAPGEMINI EXCELLER") {
-                        window.location.href = '/services/capgemini-exceller';
-                      } else if (tag.toUpperCase() === "COGNIZANT") {
-                        window.location.href = '/services/cognizant';
-                      } else if (tag.toUpperCase() === "WIPRO ELITE") {
-                        window.location.href = '/services/wipro-elite';
-                      } else if (tag.toUpperCase() === "QUANTITATIVE APTITUDE") {
-                        window.location.href = '/services/quantitative-aptitude';
-                      } else if (tag.toUpperCase() === "REASONING APTITUDE") {
-                        window.location.href = '/services/reasoning-aptitude';
-                      } else if (tag.toUpperCase() === "VERBAL/NON-VERBAL ABILITY") {
-                        window.location.href = '/services/verbal-non-verbal';
-                      } else if (tag.toUpperCase() === "PROBLEM SOLVING") {
-                        window.location.href = '/services/problem-solving';
-                      } else if (tag.toUpperCase() === "COMMUNICATION") {
-                        window.location.href = '/services/communication';
-                      } else if (tag.toUpperCase() === "PERSONALITY DEVELOPMENT") {
-                        window.location.href = '/services/personality-development';
-                      } else if (tag.toUpperCase() === "MOCK INTERVIEWS") {
-                        window.location.href = '/services/mock-interview';
-                      } else if (tag.toUpperCase() === "JAVA FULL STACK") {
-                        window.location.href = '/services/java-full-stack';
-                      } else if (tag.toUpperCase() === "PYTHON FULL STACK") {
-                        window.location.href = '/services/python-full-stack';
-                      } else if (tag.toUpperCase() === "MERN DEVELOPMENT") {
-                        window.location.href = '/services/mern-development';
-                      } else if (tag.toUpperCase() === "INNOVATION") {
-                        window.location.href = '/services/innovation';
-                      } else if (tag.toUpperCase() === "TEAM COLLABORATION") {
-                        window.location.href = '/services/team-collaboration';
-                      } else if (tag.toUpperCase() === "RAPID PROTOTYPING") {
-                        window.location.href = '/services/rapid-prototyping';
-                      } else if (tag.toUpperCase() === "PROBLEM STATEMENTS") {
-                        window.location.href = '/services/problem-statements';
-                      } else if (tag.toUpperCase() === "CLOUD COMPUTING") {
-                        window.location.href = '/services/cloud-computing';
-                      } else if (tag.toUpperCase() === "DEVOPS") {
-                        window.location.href = '/services/devops';
-                      } else if (tag.toUpperCase() === "SOFTWARE PROJECT" || tag.toUpperCase() === "SOFTWARE PROJECTS") {
-                        window.location.href = '/services/software-projects';
-                      } else if (tag.toUpperCase() === "HARDWARE PROJECT" || tag.toUpperCase() === "HARDWARE PROJECTS") {
-                        window.location.href = '/services/hardware-projects';
-                      } else if (tag.toUpperCase() === "IOT PROJECTS" || tag.toUpperCase() === "IOT PROJECT") {
-                        window.location.href = '/services/iot-projects';
+                      const tagMap = {
+                        "TCS NQT": "/services/tcs-nqt",
+                        "TCS CODEVITA": "/services/tcs-codevita",
+                        "CAPGEMINI EXCELLER": "/services/capgemini-exceller",
+                        "COGNIZANT": "/services/cognizant",
+                        "WIPRO ELITE": "/services/wipro-elite",
+                        "QUANTITATIVE APTITUDE": "/services/quantitative-aptitude",
+                        "REASONING APTITUDE": "/services/reasoning-aptitude",
+                        "VERBAL/NON-VERBAL ABILITY": "/services/verbal-non-verbal",
+                        "PROBLEM SOLVING": "/services/problem-solving",
+                        "COMMUNICATION": "/services/communication",
+                        "PERSONALITY DEVELOPMENT": "/services/personality-development",
+                        "MOCK INTERVIEWS": "/services/mock-interview",
+                        "JAVA FULL STACK": "/services/java-full-stack",
+                        "PYTHON FULL STACK": "/services/python-full-stack",
+                        "MERN DEVELOPMENT": "/services/mern-development",
+                        "INNOVATION": "/services/innovation",
+                        "TEAM COLLABORATION": "/services/team-collaboration",
+                        "RAPID PROTOTYPING": "/services/rapid-prototyping",
+                        "PROBLEM STATEMENTS": "/services/problem-statements",
+                        "CLOUD COMPUTING": "/services/cloud-computing",
+                        "DEVOPS": "/services/devops",
+                        "SOFTWARE PROJECTS": "/services/software-projects",
+                        "SOFTWARE PROJECT": "/services/software-projects",
+                        "HARDWARE PROJECTS": "/services/hardware-projects",
+                        "HARDWARE PROJECT": "/services/hardware-projects",
+                        "IOT PROJECTS": "/services/iot-projects",
+                        "IOT PROJECT": "/services/iot-projects"
+                      };
+
+                      const path = tagMap[tag.toUpperCase()];
+                      if (path) {
+                        navigate(path);
                       } else {
                         setSelectedTag(tag);
                       }
                     }}
+
                   >
                     {tag}
                   </button>
