@@ -301,7 +301,7 @@ const Courses = ({ adminCourses = [] }) => {
           { title: "Identity Provider Store", desc: "High-performance storage for user session and auth keys." }
         ]
       },
-      'Java': {
+      'Java programming': {
         duration: '4 Months', fees: '₹8,500',
         definition: "Comprehensive training in Core Java. Master OOPs, Exceptions, Multithreading, and the Foundations of Java ecosystem.",
         softwareRequirements: ['JDK 21', 'Eclipse/IntelliJ'],
@@ -728,7 +728,7 @@ const Courses = ({ adminCourses = [] }) => {
             .sidebar-card { position: static; margin-top: 40px; }
           }
         `}</style>
-        
+
         <div className="detail-nav-sticky">
           <button className="back-btn" onClick={handleBackToGrid}>
             <ArrowLeft size={18} /> Back to Courses
@@ -772,7 +772,7 @@ const Courses = ({ adminCourses = [] }) => {
               <h2 className="section-heading">Real-Time Industry Projects</h2>
               {course.projects.map((p, i) => (
                 <div key={i} className="project-card">
-                  <h4>Project {i+1}: {p.title}</h4>
+                  <h4>Project {i + 1}: {p.title}</h4>
                   <p>{p.desc}</p>
                 </div>
               ))}
@@ -782,9 +782,9 @@ const Courses = ({ adminCourses = [] }) => {
           <div>
             <div className="sidebar-card">
               <h3 style={{ fontSize: '1.4rem', color: '#0f172a', marginBottom: '20px' }}>Program Details</h3>
-              
+
               <span className="price-tag">{course.fees}</span>
-              
+
               <div className="summary-row">
                 <span>Duration</span>
                 <span className="summary-val">{course.duration}</span>
@@ -938,7 +938,7 @@ const Courses = ({ adminCourses = [] }) => {
           border-color: #2563eb;
         }
       `}</style>
-      
+
       <h1 className="section-title">Professional Training Programs</h1>
       <p className="section-subtitle">
         Explore our exhaustive catalog of industry-ready programs. Built for professionals who demand excellence.
@@ -957,29 +957,29 @@ const Courses = ({ adminCourses = [] }) => {
                 <img src="/logo.jpg" alt="Logo" className="card-logo" />
               </div>
             </div>
-            
+
             <div className="card-divider"></div>
-            
+
             <div className="card-middle">
               <div className="info-row">
-                <MapPin size={16} className="i-icon" /> 
+                <MapPin size={16} className="i-icon" />
                 <strong>Internship Location:</strong> {location}
               </div>
               <div className="info-row">
-                <Monitor size={16} className="i-icon" /> 
+                <Monitor size={16} className="i-icon" />
                 <strong>Work mode:</strong> {workMode}
               </div>
               <div className="info-row">
-                <Clock size={16} className="i-icon" /> 
+                <Clock size={16} className="i-icon" />
                 <strong>Duration:</strong> {allCourses[courseName].duration}
               </div>
               <div className="info-row">
                 <span className="info-row-fees" style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                  <span style={{ fontWeight: 800 }}>₹</span> 
+                  <span style={{ fontWeight: 800 }}>₹</span>
                   <strong>Fees:</strong> {allCourses[courseName].fees}
                 </span>
               </div>
-              
+
               <p className="card-desc">
                 {allCourses[courseName].definition.substring(0, 110)}...
               </p>

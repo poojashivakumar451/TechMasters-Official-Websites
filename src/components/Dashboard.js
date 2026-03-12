@@ -23,7 +23,7 @@ import {
 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
-import emailjs from '@emailjs/browser';
+
 
 const systemCoursesList = [
   { name: 'Python Full Stack', duration: '4 Months', fees: '₹15,000' },
@@ -175,9 +175,7 @@ const Dashboard = ({ adminCourses, setAdminCourses, enrollments, setEnrollments 
     else if (courseLower.includes('java')) duration = '6 Months';
     else if (courseLower.includes('data science')) duration = '6 Months';
 
-    const message = `Dear Student,
-
-Greetings from TechMasters Training Institute.
+    const message = `Greetings from TechMasters Training Institute.
 
 We are pleased to inform you that your enrollment for the course ${student.course} has been successfully processed.
 
@@ -204,8 +202,11 @@ Email: techmasterstrainings@gmail.com`;
 
     const mailtoSubject = `Enrollment Confirmation - ${student.course}`;
     const mailtoBody = encodeURIComponent(message);
-    const fromEmail = encodeURIComponent("techmasterstrainings@gmail.com");
-    window.location.href = `mailto:${student.email}?from=${fromEmail}&subject=${encodeURIComponent(mailtoSubject)}&body=${mailtoBody}`;
+    
+    // Open Gmail web perfectly in a new tab with the 'To', 'Subject' and 'Body' pre-filled.
+    // This bypasses local Windows Mail app and allows sending from the logged-in admin Gmail account.
+    const gmailComposeUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${student.email}&su=${encodeURIComponent(mailtoSubject)}&body=${mailtoBody}`;
+    window.open(gmailComposeUrl, '_blank');
   };
 
   const handleEnrollmentStatus = (id, status) => {
@@ -223,27 +224,14 @@ Email: techmasterstrainings@gmail.com`;
   const sendPaymentEmail = (student) => {
     if (!student.email) return;
 
-    const templateParams = {
-      to_name: student.name,
-      to_email: student.email,
-      course_name: student.course,
-      amount: student.fees || '₹5,000',
-      reply_to: 'techmasterstrainings@gmail.com',
-      message: `Dear ${student.name}, we have successfully received your payment for the ${student.course} course. Your seat is now fully confirmed. Welcome to Techmasters Trainings!`
-    };
+    const message = `Dear ${student.name}, we have successfully received your payment for the ${student.course} course. Your seat is now fully confirmed. Welcome to Techmasters Trainings!`;
 
-    emailjs.send(
-      'service_dr7aayx',
-      'template_yqu81i5',
-      templateParams,
-      'yks84H3K2yWlD_gO7'
-    )
-    .then(() => {
-       alert(`Payment confirmation sent to ${student.email}!`);
-    })
-    .catch((err) => {
-       console.error('Payment email failed:', err);
-    });
+    const mailtoSubject = `Payment Confirmation - ${student.course}`;
+    const mailtoBody = encodeURIComponent(message);
+    
+    // Open Gmail web perfectly in a new tab with the 'To', 'Subject' and 'Body' pre-filled.
+    const gmailComposeUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${student.email}&su=${encodeURIComponent(mailtoSubject)}&body=${mailtoBody}`;
+    window.open(gmailComposeUrl, '_blank');
   };
 
   const handleMarkAsPaid = () => {
@@ -293,21 +281,17 @@ Email: techmasterstrainings@gmail.com`;
   };
 
   const sendSecurityAlert = (type, details) => {
-    const templateParams = {
-      from_name: 'TechMasters Security System',
-      to_name: 'Admin Team',
-      to_email: 'techmasterstrainings@gmail.com',
-      subject: `[SECURITY ALERT] ${type}`,
-      message: `Unauthorized access attempt detected in the Admin Dashboard.\n\nDetails:\n${details}\n\nTimestamp: ${new Date().toLocaleString()}\nLocation: Bidar HQ\n\nPlease review your security logs immediately.`,
-      reply_to: 'techmasterstrainings@gmail.com'
-    };
-
-    emailjs.send(
-      'service_dr7aayx',
-      'template_yqu81i5',
-      templateParams,
-      'yks84H3K2yWlD_gO7'
-    )
+    fetch("https://formsubmit.co/ajax/techmasterstrainings@gmail.com", {
+      method: "POST",
+      headers: { 
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify({
+        _subject: `[SECURITY ALERT] ${type}`,
+        message: `Unauthorized access attempt detected in the Admin Dashboard.\n\nDetails:\n${details}\n\nTimestamp: ${new Date().toLocaleString()}\nLocation: Bidar HQ\n\nPlease review your security logs immediately.`
+      })
+    })
     .then(() => console.log('Security Alert Dispatched.'))
     .catch(err => console.error('Security Alert Failed:', err));
   };
