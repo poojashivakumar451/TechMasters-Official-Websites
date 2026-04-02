@@ -1,5 +1,5 @@
 import React from 'react';
-import { ArrowLeft, Lightbulb, Target, Rocket, ShieldCheck, Cpu, Code, Users, ClipboardCheck, ArrowRight } from 'lucide-react';
+import { ArrowLeft, Lightbulb, Target, Rocket, ShieldCheck, Cpu, Code, Users, ClipboardCheck } from 'lucide-react';
 
 const ProblemStatements = () => {
   const handleBack = () => {

@@ -1,0 +1,28 @@
+﻿
+C:\Users\shiva\.gemini\antigravity\playground\ultraviolet-sun\src\components\CoursePlayer.js
+  10:3  warning  'FileText' is defined but never used                                                                                no-unused-vars
+  26:6  warning  React Hook useEffect has a missing dependency: 'fetchCourseData'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+
+C:\Users\shiva\.gemini\antigravity\playground\ultraviolet-sun\src\components\HardwareProjects.js
+  2:86  warning  'Zap' is defined but never used  no-unused-vars
+
+C:\Users\shiva\.gemini\antigravity\playground\ultraviolet-sun\src\components\IotProjects.js
+  2:39  warning  'Cpu' is defined but never used  no-unused-vars
+
+C:\Users\shiva\.gemini\antigravity\playground\ultraviolet-sun\src\components\ProblemStatements.js
+  2:95  warning  'ArrowRight' is defined but never used  no-unused-vars
+
+C:\Users\shiva\.gemini\antigravity\playground\ultraviolet-sun\src\components\RapidPrototyping.js
+  2:21  warning  'Rocket' is defined but never used  no-unused-vars
+
+C:\Users\shiva\.gemini\antigravity\playground\ultraviolet-sun\src\components\SoftwareProjects.js
+  2:86  warning  'Database' is defined but never used  no-unused-vars
+
+C:\Users\shiva\.gemini\antigravity\playground\ultraviolet-sun\src\components\StudentDashboard.js
+   4:3  warning  'Play' is defined but never used                                                                                     no-unused-vars
+   5:3  warning  'CheckCircle' is defined but never used                                                                              no-unused-vars
+  13:3  warning  'FileText' is defined but never used                                                                                 no-unused-vars
+  25:6  warning  React Hook useEffect has a missing dependency: 'fetchStudentData'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+
+Γ£û 11 problems (0 errors, 11 warnings)
+

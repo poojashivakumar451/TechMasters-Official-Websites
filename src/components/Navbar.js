@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { NavLink, useLocation } from 'react-router-dom';
-import { Menu, X, ChevronRight } from 'lucide-react';
+import { NavLink, useNavigate, useLocation } from 'react-router-dom';
+import { Menu, X, ChevronRight, Layout, LogIn } from 'lucide-react';
 import './Navbar.css';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -26,13 +27,29 @@ const Navbar = () => {
     window.scrollTo(0, 0);
   }, [location.pathname]);
 
+  const isAdminLoggedIn = localStorage.getItem('isAdminAuthenticated') === 'true';
+  const isStudentLoggedIn = !!localStorage.getItem('accessToken') && !isAdminLoggedIn;
+
+  const handleAdminLogin = () => {
+    if (isAdminLoggedIn) {
+      navigate('/dashboard');
+      return;
+    }
+    const pin = prompt("Please enter Admin Access PIN (Standard: 102023):");
+    if (pin === "102023") {
+      localStorage.setItem('isAdminAuthenticated', 'true');
+      navigate('/dashboard');
+    } else {
+      alert("Invalid Enrollment PIN. Access Denied.");
+    }
+  };
+
   const navLinks = [
     { name: 'Home', path: '/' },
     { name: 'About Us', path: '/about' },
     { name: 'Services', path: '/services' },
     { name: 'Courses', path: '/courses' },
-    { name: 'Gallery', path: '/gallery' },
-    { name: 'Admin', path: '/admin' }
+    { name: 'Gallery', path: '/gallery' }
   ];
 
   return (
@@ -62,8 +79,31 @@ const Navbar = () => {
           </ul>
           
           <div className="nav-actions">
+            {!isAdminLoggedIn && !isStudentLoggedIn && (
+              <>
+                <button className="login-btn" onClick={handleAdminLogin}>
+                   <LogIn size={18} /> Admin Console
+                </button>
+                <NavLink to="/login" className="login-btn">
+                   Student Login
+                </NavLink>
+              </>
+            )}
+
+            {isAdminLoggedIn && (
+              <button className="login-btn" onClick={() => navigate('/dashboard')}>
+                 <Layout size={18} /> Admin Console
+              </button>
+            )}
+
+            {isStudentLoggedIn && (
+              <button className="login-btn" onClick={() => navigate('/student-dashboard')}>
+                 <Layout size={18} /> Dashboard
+              </button>
+            )}
+            
             <NavLink to="/enroll" className="btn-enroll">
-              Enroll Now <ChevronRight size={18} />
+              Enroll <ChevronRight size={18} />
             </NavLink>
           </div>
         </nav>

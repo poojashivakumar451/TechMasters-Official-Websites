@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ArrowLeft, BookOpen, Layers, Cpu, Globe, CheckCircle, Monitor, ShieldCheck, Wifi } from 'lucide-react';
+import { ArrowLeft, BookOpen, Layers, Globe, CheckCircle, Monitor, ShieldCheck, Wifi } from 'lucide-react';
 
 const IotProjects = () => {
   const [selectedProject, setSelectedProject] = useState(null);

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Send } from 'lucide-react';
+import { Send, CheckCircle, Clock } from 'lucide-react';
 
 const Enroll = ({ addEnrollment }) => {
   const [formData, setFormData] = useState({
@@ -13,8 +13,8 @@ const Enroll = ({ addEnrollment }) => {
   const [lockedCourse, setLockedCourse] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState('');
 
-  // Pre-fill if coming from Courses page
   React.useEffect(() => {
     const preselected = sessionStorage.getItem('preselectedCourse');
     if (preselected) {
@@ -26,261 +26,213 @@ const Enroll = ({ addEnrollment }) => {
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+    setError('');
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
+    setError('');
 
-    // Using FormSubmit AJAX endpoint for direct email delivery without backend
-    fetch("https://formsubmit.co/ajax/techmasterstrainings@gmail.com", {
-      method: "POST",
-      headers: { 
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
-      },
-      body: JSON.stringify({
-        _subject: `New Course Enrollment: ${formData.course}`,
-        name: formData.name,
-        email: formData.email,
-        phone: formData.phone,
-        course: formData.course,
-        background: formData.background,
-        _autoresponse: `Dear ${formData.name},\n\nYou have successfully enrolled in the ${formData.course} course at TechMasters Trainings Private Limited! Thank you for applying.\n\nOur academic counselor will get in touch with you shortly to proceed with the screening.\n\nBest Regards,\nTechMasters Team`,
-        message: `Dear TechMasters Team,\n\nA professional has successfully enrolled in the courses!\n\nDetails:\nName: ${formData.name}\nEmail: ${formData.email}\nPhone: ${formData.phone}\nCourse: ${formData.course}\nBackground: ${formData.background}\n\nPlease proceed with the next steps for their enrollment.`
-      })
-    })
-    .then(response => response.json())
-    .then(data => {
-      addEnrollment(formData);
+    try {
+      const response = await fetch("http://localhost:8000/api/courses/enrollments/public_enroll/", {
+        method: "POST",
+        headers: { 
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify(formData)
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        if (addEnrollment) addEnrollment(data);
+        setSubmitted(true);
+        setShowModal(true);
+      } else {
+        const errData = await response.json();
+        setError(errData.error || 'Enrollment failed. Please try again.');
+      }
+    } catch (err) {
+      console.error("Backend connection error:", err);
+      setError('Cannot connect to the server. Please ensure the backend is running.');
+    } finally {
       setIsSubmitting(false);
-      setSubmitted(true);
-      setShowModal(true);
-    })
-    .catch(error => {
-      console.log(error);
-      addEnrollment(formData); // Still add to dashboard even if email fails
-      setIsSubmitting(false);
-      setSubmitted(true);
-      setShowModal(true); // Show success anyway for demo purposes
-    });
+    }
   };
 
   return (
-    <div className="page-container fade-in">
+    <div className="page-container fade-in" style={{ padding: '40px 5%' }}>
       <style>{`
-        .enroll-layout {
+        .enroll-card {
           display: grid;
-          grid-template-columns: 1fr 1.2fr;
-          gap: 60px;
+          grid-template-columns: 1fr 1.5fr;
           background: white;
-          border-radius: 24px;
+          border-radius: 30px;
           overflow: hidden;
-          box-shadow: 0 20px 40px rgba(0,0,0,0.04);
-          border: 1px solid #f1f5f9;
+          box-shadow: var(--shadow-premium);
+          border: 1px solid var(--border-color);
         }
-        .enroll-info {
-          background: #0f172a;
+        .enroll-sidebar {
+          background: var(--secondary);
           color: white;
           padding: 60px 40px;
           position: relative;
         }
-        .enroll-info::after {
-          content: ''; position: absolute; top:0; left:0; right:0; bottom:0;
-          background: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc2MCcgaGVpZ2h0PSc2MCc+CgkJPHBhdGggZD0nTTU0LjYyNyAwTDYwIDUuMzczVjYwaC01LjM3M1Y1LjM3M0gwdS01LjM3M1YweicgZmlsbD0nI2ZmZmZmZicgZmlsbC1vcGFjaXR5PScwLjA1JyBmaWxsLXJ1bGU9J2V2ZW5vZGQnLz4KPC9zdmc+')
-        }
-        .info-content { position: relative; z-index: 10; }
-        .info-content h2 { color: white; font-size: 2.2rem; margin-bottom: 20px; }
-        .info-content p { color: #94a3b8; line-height: 1.7; font-size: 1.1rem; margin-bottom: 40px; }
+        .enroll-sidebar h2 { color: white; margin-bottom: 20px; font-size: 2.25rem; }
+        .enroll-sidebar p { opacity: 0.8; line-height: 1.8; margin-bottom: 40px; }
         
-        .enroll-form-container {
-          padding: 60px 50px;
-        }
-        .form-group {
-          margin-bottom: 24px;
-        }
-        .form-label {
-          display: block;
-          margin-bottom: 8px;
-          color: #334155;
-          font-weight: 600;
-          font-size: 0.95rem;
-        }
-        .form-input, .form-select {
+        .enroll-form { padding: 60px 50px; }
+        .form-input-lms {
           width: 100%;
-          padding: 14px 16px;
-          border: 2px solid #e2e8f0;
-          border-radius: 10px;
-          font-family: inherit;
-          font-size: 1rem;
-          color: #0f172a;
-          transition: all 0.3s;
+          padding: 14px 18px;
+          border: 2px solid #f1f5f9;
           background: #f8fafc;
+          border-radius: 12px;
+          font-size: 1rem;
+          transition: var(--transition);
         }
-        .form-input:focus, .form-select:focus {
+        .form-input-lms:focus {
+          border-color: var(--primary);
+          background: white;
           outline: none;
-          border-color: #3b82f6;
-          background: white;
-          box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
+          box-shadow: 0 0 0 4px rgba(139, 0, 0, 0.1);
         }
-        .submit-btn {
+        .lms-btn-submit {
           width: 100%;
-          background: #2563eb;
+          background: var(--primary);
           color: white;
-          padding: 16px;
-          border: none;
-          border-radius: 10px;
+          padding: 18px;
+          border-radius: 14px;
+          font-weight: 800;
           font-size: 1.1rem;
-          font-weight: 700;
           cursor: pointer;
+          border: none;
           display: flex;
-          justify-content: center;
           align-items: center;
-          gap: 10px;
-          transition: 0.3s;
+          justify-content: center;
+          gap: 12px;
+          transition: var(--transition);
         }
-        .submit-btn:hover { background: #1d4ed8; }
+        .lms-btn-submit:hover:not(:disabled) { background: var(--primary-dark); transform: translateY(-3px); }
+        .lms-btn-submit:disabled { opacity: 0.6; cursor: not-allowed; }
         
-        .success-box {
-          text-align: center;
-          padding: 60px 20px;
-        }
-        .success-icon {
-          width: 80px; height: 80px;
-          background: #dcfce7; color: #22c55e;
-          border-radius: 50%;
-          display: flex; align-items: center; justify-content: center;
-          margin: 0 auto 24px;
-          font-size: 40px;
-        }
-        .modal-overlay {
-          position: fixed;
-          top: 0; left: 0; right: 0; bottom: 0;
-          background: rgba(15, 23, 42, 0.7);
-          backdrop-filter: blur(5px);
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          z-index: 9999;
-        }
-        .modal-content {
-          background: white;
-          padding: 40px;
-          border-radius: 20px;
-          text-align: center;
-          max-width: 450px;
-          width: 90%;
-          box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25);
-        }
-        @media (max-width: 992px) {
-          .enroll-layout { grid-template-columns: 1fr; }
-          .enroll-info { padding: 40px 30px; }
-          .enroll-form-container { padding: 40px 30px; }
+        @media (max-width: 900px) {
+          .enroll-card { grid-template-columns: 1fr; }
         }
       `}</style>
 
-      <div className="enroll-layout">
-        <div className="enroll-info">
-          <div className="info-content">
-            <h2>Take the Next Step in Your Career</h2>
-            <p>Join the elite group of developers training at TechMasters. Fill out the application form, and our academic counselor will get in touch with you shortly to proceed with the screening.</p>
-            
-            <div style={{ marginTop: '40px' }}>
-              <div style={{ display: 'flex', gap: '15px', marginBottom: '20px', alignItems: 'center' }}>
-                <div style={{ width: '40px', height: '40px', background: 'rgba(255,255,255,0.1)', borderRadius:'50%', display:'flex', justifyContent:'center', alignItems:'center' }}>1</div>
-                <div>
-                  <strong style={{ display: 'block' }}>Submit Application</strong>
-                  <span style={{ color: '#94a3b8', fontSize: '0.85rem' }}>Provide basic details</span>
-                </div>
+      <div className="enroll-card">
+        <aside className="enroll-sidebar">
+           <h2>Ignite Your Potential</h2>
+           <p>Join TechMasters Training Institute. Our elite programs are designed for innovators like you. Take the first step towards your professional career today.</p>
+           
+           <div style={{ display: 'flex', flexDirection: 'column', gap: '30px' }}>
+              <div style={{ display: 'flex', gap: '20px' }}>
+                 <div style={{ background: 'rgba(255,255,255,0.1)', width: '50px', height: '50px', borderRadius: '50%', display: 'flex', justifyContent: 'center', alignItems: 'center', fontWeight: 800 }}>01</div>
+                 <div>
+                    <h4 style={{ margin: 0 }}>Register</h4>
+                    <span style={{ fontSize: '0.85rem', opacity: 0.6 }}>Tell us about yourself</span>
+                 </div>
               </div>
-              <div style={{ display: 'flex', gap: '15px', marginBottom: '20px', alignItems: 'center' }}>
-                <div style={{ width: '40px', height: '40px', background: 'rgba(255,255,255,0.1)', borderRadius:'50%', display:'flex', justifyContent:'center', alignItems:'center' }}>2</div>
-                <div>
-                  <strong style={{ display: 'block' }}>Counseling Call</strong>
-                  <span style={{ color: '#94a3b8', fontSize: '0.85rem' }}>We evaluate your needs</span>
-                </div>
+              <div style={{ display: 'flex', gap: '20px' }}>
+                 <div style={{ background: 'rgba(255,255,255,0.1)', width: '50px', height: '50px', borderRadius: '50%', display: 'flex', justifyContent: 'center', alignItems: 'center', fontWeight: 800 }}>02</div>
+                 <div>
+                    <h4 style={{ margin: 0 }}>Consult</h4>
+                    <span style={{ fontSize: '0.85rem', opacity: 0.6 }}>Screening & Counseling</span>
+                 </div>
               </div>
-              <div style={{ display: 'flex', gap: '15px', marginBottom: '20px', alignItems: 'center' }}>
-                <div style={{ width: '40px', height: '40px', background: 'rgba(255,255,255,0.1)', borderRadius:'50%', display:'flex', justifyContent:'center', alignItems:'center' }}>3</div>
-                <div>
-                  <strong style={{ display: 'block' }}>Confirmation</strong>
-                  <span style={{ color: '#94a3b8', fontSize: '0.85rem' }}>Welcome to TechMasters!</span>
-                </div>
+              <div style={{ display: 'flex', gap: '20px' }}>
+                 <div style={{ background: 'rgba(255,255,255,0.1)', width: '50px', height: '50px', borderRadius: '50%', display: 'flex', justifyContent: 'center', alignItems: 'center', fontWeight: 800 }}>03</div>
+                 <div>
+                    <h4 style={{ margin: 0 }}>Launch</h4>
+                    <span style={{ fontSize: '0.85rem', opacity: 0.6 }}>Access Global LMS</span>
+                 </div>
               </div>
-            </div>
-          </div>
-        </div>
+           </div>
+        </aside>
 
-        <div className="enroll-form-container">
-          {!submitted ? (
-            <form onSubmit={handleSubmit}>
-              <h3 style={{ fontSize:'1.6rem', marginBottom:'30px', color:'#0f172a' }}>Enroll Now</h3>
-              
-              <div className="form-group">
-                <label className="form-label">Full Name</label>
-                <input required type="text" name="name" className="form-input" placeholder="John Doe" value={formData.name} onChange={handleChange} />
-              </div>
-              
-              <div className="form-group">
-                <label className="form-label">Email Address</label>
-                <input required type="email" name="email" className="form-input" placeholder="john@example.com" value={formData.email} onChange={handleChange} />
-              </div>
-
-              <div className="form-group">
-                <label className="form-label">Phone Number</label>
-                <input required type="tel" name="phone" className="form-input" placeholder="+91 98765 43210" value={formData.phone} onChange={handleChange} />
-              </div>
-
-              <div className="form-group">
-                <label className="form-label">Select Program</label>
-                {lockedCourse ? (
-                  <input type="text" className="form-input" style={{ backgroundColor: '#e2e8f0', cursor: 'not-allowed' }} value={formData.course} readOnly />
-                ) : (
-                  <select required name="course" className="form-select" value={formData.course} onChange={handleChange}>
-                    <option value="" disabled>Select a course</option>
-                    <option value="Java Full Stack Development">Java Full Stack Development</option>
-                    <option value="Python Full Stack Development">Python Full Stack Development</option>
-                    <option value="MERN Full Stack Development">MERN Full Stack Development</option>
-                    <option value="Data Science">Data Science</option>
-                    <option value="React Advanced">React Advanced</option>
-                    <option value="Other">Other</option>
-                  </select>
+        <main className="enroll-form">
+           {!submitted ? (
+             <form onSubmit={handleSubmit}>
+                <h3 style={{ fontSize: '2rem', marginBottom: '30px', color: 'var(--text-main)' }}>Student Application</h3>
+                
+                {error && (
+                  <div style={{ background: '#fee2e2', color: '#b91c1c', padding: '15px', borderRadius: '12px', marginBottom: '24px', fontSize: '0.9rem', fontWeight: 600 }}>
+                    {error}
+                  </div>
                 )}
-              </div>
 
-              <div className="form-group">
-                <label className="form-label">Educational Background</label>
-                <input type="text" name="background" className="form-input" placeholder="e.g. B.Tech Computer Science 2023" value={formData.background} onChange={handleChange} />
-              </div>
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', marginBottom: '24px' }}>
+                   <div className="form-group">
+                      <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, marginBottom: '8px' }}>Full Name</label>
+                      <input required name="name" className="form-input-lms" placeholder="Enter your full name" value={formData.name} onChange={handleChange} />
+                   </div>
+                   <div className="form-group">
+                      <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, marginBottom: '8px' }}>Email ID</label>
+                      <input required type="email" name="email" className="form-input-lms" placeholder="name@example.com" value={formData.email} onChange={handleChange} />
+                   </div>
+                </div>
 
-              <button type="submit" className="submit-btn" disabled={isSubmitting}>
-                {isSubmitting ? 'Sending...' : <>Submit Application <Send size={18} /></>}
-              </button>
-            </form>
-          ) : (
-            <div className="success-box fade-in">
-              <h3 style={{ fontSize:'1.8rem', color:'#0f172a', marginBottom:'16px' }}>Application Processing</h3>
-              <p style={{ color:'#64748b', fontSize:'1.1rem', marginBottom:'30px' }}>
-                Please check for our pop-up confirmation or incoming emails.
-              </p>
-            </div>
-          )}
-        </div>
+                <div className="form-group" style={{ marginBottom: '24px' }}>
+                   <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, marginBottom: '8px' }}>Contact Number</label>
+                   <input required type="tel" name="phone" className="form-input-lms" placeholder="+91 00000 00000" value={formData.phone} onChange={handleChange} />
+                </div>
+
+                <div className="form-group" style={{ marginBottom: '24px' }}>
+                   <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, marginBottom: '8px' }}>Target Program</label>
+                   {lockedCourse ? (
+                     <input className="form-input-lms" style={{ background: '#e2e8f0', cursor: 'not-allowed' }} value={formData.course} readOnly />
+                   ) : (
+                     <select required name="course" className="form-input-lms" value={formData.course} onChange={handleChange}>
+                        <option value="" disabled>Select a course path</option>
+                        <option value="Java Full Stack Development">Java Full Stack Development</option>
+                        <option value="Python Full Stack Development">Python Full Stack Development</option>
+                        <option value="MERN Full Stack Development">MERN Full Stack Development</option>
+                        <option value="Data Science & ML">Data Science & ML</option>
+                        <option value="React Advanced">React Advanced</option>
+                     </select>
+                   )}
+                </div>
+
+                <div className="form-group" style={{ marginBottom: '40px' }}>
+                   <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: 700, marginBottom: '8px' }}>Background Info</label>
+                   <input name="background" className="form-input-lms" placeholder="Major, Graduation Year, etc." value={formData.background} onChange={handleChange} />
+                </div>
+
+                <button type="submit" className="lms-btn-submit" disabled={isSubmitting}>
+                   {isSubmitting ? 'Processing Application...' : <><Send size={20} /> Submit Enrollment</>}
+                </button>
+             </form>
+           ) : (
+             <div style={{ textAlign: 'center', padding: '60px 0' }}>
+                <div style={{ background: '#dcfce7', color: 'var(--success)', width: '100px', height: '100px', borderRadius: '50%', display: 'flex', justifyContent: 'center', alignItems: 'center', margin: '0 auto 30px' }}>
+                   <CheckCircle size={50} />
+                </div>
+                <h2 style={{ fontSize: '2.5rem' }}>Success!</h2>
+                <p style={{ color: 'var(--text-muted)', fontSize: '1.2rem', maxWidth: '400px', margin: '0 auto 40px' }}>Your application has been logged into our secure database. An admissions counselor will reach out to you shortly.</p>
+                <div className="premium-card" style={{ maxWidth: '400px', margin: '0 auto', textAlign: 'left', background: '#f8fafc' }}>
+                   <div style={{ display: 'flex', gap: '15px' }}>
+                      <Clock size={20} color="var(--primary)" />
+                      <div style={{ fontSize: '0.9rem' }}>
+                         <strong>Pending Review</strong>
+                         <p style={{ margin: '5px 0 0', opacity: 0.7 }}>Credentials verification in progress.</p>
+                      </div>
+                   </div>
+                </div>
+             </div>
+           )}
+        </main>
       </div>
 
       {showModal && (
-        <div className="modal-overlay">
-          <div className="modal-content fade-in">
-            <div className="success-icon">✓</div>
-            <h3 style={{ fontSize:'1.8rem', color:'#0f172a', marginBottom:'16px' }}>Application Sent!</h3>
-            <p style={{ color:'#64748b', fontSize:'1.1rem', lineHeight: '1.6', margin:'0 auto 30px' }}>
-              You have successfully enrolled the courses, thank you!<br/>
-              <span style={{ fontSize:'0.95rem', display:'block', marginTop:'10px' }}>Our academic counselor will contact you within 24 hours. A professional confirmation email has also been sent to both parties.</span>
-            </p>
-            <button className="submit-btn" onClick={() => window.location.href='/courses'}>
-              Done
-            </button>
-          </div>
+        <div className="modal-overlay" style={{ position: 'fixed', top:0, left:0, right:0, bottom:0, background: 'rgba(0,0,0,0.7)', display: 'flex', justifyContent: 'center', alignItems: 'center', zIndex: 9999 }}>
+           <div className="premium-card fade-in" style={{ maxWidth: '450px', textAlign: 'center', padding: '40px' }}>
+              <CheckCircle size={60} color="var(--success)" style={{ marginBottom: '20px' }} />
+              <h3>Enrollment Confirmed</h3>
+              <p style={{ margin: '15px 0 30px', color: 'var(--text-muted)' }}>Thank you for choosing TechMasters. Your journey to excellence starts here. Use your email to login once approved.</p>
+              <button className="lms-btn-submit" onClick={() => window.location.href='/login'}>Navigate to Login</button>
+           </div>
         </div>
       )}
     </div>

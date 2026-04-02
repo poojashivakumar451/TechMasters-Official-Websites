@@ -7,6 +7,8 @@ import About from './components/About';
 import Academy from './components/Academy';
 import Courses from './components/Courses';
 import Dashboard from './components/Dashboard';
+import StudentDashboard from './components/StudentDashboard';
+import CoursePlayer from './components/CoursePlayer';
 import Login from './components/Login';
 import Enroll from './components/Enroll';
 import Gallery from './components/Gallery';
@@ -37,42 +39,67 @@ import TeamCollaboration from './components/TeamCollaboration';
 import Innovation from './components/Innovation';
 import './App.css';
 
-const ProtectedRoute = ({ children }) => {
-  const isAuthenticated = localStorage.getItem('isAdminAuthenticated') === 'true';
-  return isAuthenticated ? children : <Navigate to="/admin" />;
+const AdminRoute = ({ children }) => {
+  const isAdmin = localStorage.getItem('isAdminAuthenticated') === 'true';
+  return isAdmin ? children : <Navigate to="/login" />;
+};
+
+const StudentRoute = ({ children }) => {
+  const hasToken = !!localStorage.getItem('accessToken');
+  return hasToken ? children : <Navigate to="/login" />;
 };
 
 const LayoutWrapper = ({ children, enrollments, adminCourses, setAdminCourses, setEnrollments, addEnrollment }) => {
   const location = useLocation();
-  const isDashboard = location.pathname === '/dashboard';
+  const isLMSView = location.pathname === '/dashboard' || 
+                    location.pathname === '/student-dashboard' || 
+                    location.pathname.includes('/play');
 
   return (
     <div className="app-container">
-      {!isDashboard && <Navbar />}
-      <main className={isDashboard ? 'dashboard-mode' : 'main-content'}>
+      {!isLMSView && <Navbar />}
+      <main className={isLMSView ? 'dashboard-mode' : 'main-content'}>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/home" element={<Home />} />
           <Route path="/about" element={<About />} />
           <Route path="/academy" element={<Academy />} />
-          <Route 
-            path="/courses" 
-            element={<Courses adminCourses={adminCourses} />} 
-          />
-          <Route path="/admin" element={<Login />} />
+          <Route path="/courses" element={<Courses adminCourses={adminCourses} />} />
+          <Route path="/admin" element={<Navigate to="/dashboard" />} />
+          <Route path="/login" element={<Login />} />
+          
+          {/* Admin Routes */}
           <Route 
             path="/dashboard" 
             element={
-              <ProtectedRoute>
+              <AdminRoute>
                 <Dashboard 
                   adminCourses={adminCourses} 
-                  setAdminCourses={setAdminCourses} 
                   enrollments={enrollments}
                   setEnrollments={setEnrollments}
                 />
-              </ProtectedRoute>
+              </AdminRoute>
             } 
           />
+
+          {/* Student LMS Routes */}
+          <Route 
+            path="/student-dashboard" 
+            element={
+              <StudentRoute>
+                <StudentDashboard />
+              </StudentRoute>
+            } 
+          />
+          <Route 
+            path="/course/:slug/play" 
+            element={
+              <StudentRoute>
+                <CoursePlayer />
+              </StudentRoute>
+            } 
+          />
+
           <Route 
             path="/enroll" 
             element={<Enroll addEnrollment={addEnrollment} />} 
@@ -105,32 +132,60 @@ const LayoutWrapper = ({ children, enrollments, adminCourses, setAdminCourses, s
           <Route path="/services/innovation" element={<Innovation />} />
         </Routes>
       </main>
-      {!isDashboard && <Footer />}
+      {!isLMSView && <Footer />}
     </div>
   );
 };
 
 function App() {
-  const [adminCourses, setAdminCourses] = React.useState(() => {
-    const saved = localStorage.getItem('adminCourses');
-    return saved ? JSON.parse(saved) : [];
-  });
-  
-  const [enrollments, setEnrollments] = React.useState(() => {
-    const saved = localStorage.getItem('enrollments');
-    return saved ? JSON.parse(saved) : [];
-  });
+  const [adminCourses, setAdminCourses] = React.useState([]);
+  const [enrollments, setEnrollments] = React.useState([]);
+
+  const fetchData = React.useCallback(async () => {
+    const isAdmin = localStorage.getItem('isAdminAuthenticated') === 'true';
+    const token = localStorage.getItem('accessToken');
+    
+    try {
+      const coursesRes = await fetch('http://localhost:8000/api/courses/');
+      if (coursesRes.ok) {
+        const coursesData = await coursesRes.json();
+        const coursesArray = Array.isArray(coursesData) ? coursesData : (coursesData.results || []);
+        setAdminCourses(coursesArray);
+      }
+
+      if (isAdmin && token) {
+        const enrollRes = await fetch('http://localhost:8000/api/courses/enrollments/', {
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
+        if (enrollRes.ok) {
+          const enrollData = await enrollRes.json();
+          const enrollArray = Array.isArray(enrollData) ? enrollData : (enrollData.results || []);
+          const formattedEnrollments = enrollArray.map(e => ({
+            ...e, id: e.id,
+            name: (e.student_details?.first_name || e.student_details?.username || 'Student'),
+            email: e.student_details?.email,
+            course: e.course_details?.title || 'Unknown Course',
+            status: e.status, paid: e.paid, paidAmount: e.paid_amount,
+            totalFee: e.total_fee, startDate: e.start_date, endDate: e.end_date,
+            attendance: e.attendance, projectStatus: e.project_status,
+            enrolled_on: e.enrolled_on
+          }));
+          setEnrollments(formattedEnrollments);
+        }
+      }
+    } catch (err) {
+      console.error('Failed to fetch data:', err);
+    }
+  }, []);
 
   React.useEffect(() => {
-    localStorage.setItem('adminCourses', JSON.stringify(adminCourses));
-  }, [adminCourses]);
+    fetchData();
+    window.refreshDashboardData = fetchData;
+    return () => { delete window.refreshDashboardData; };
+  }, [fetchData]);
 
-  React.useEffect(() => {
-    localStorage.setItem('enrollments', JSON.stringify(enrollments));
-  }, [enrollments]);
-
-  const addEnrollment = (data) => {
-    setEnrollments(prev => [...prev, { ...data, id: Date.now(), status: 'pending' }]);
+  const addEnrollment = () => {
+    fetchData(); 
   };
 
   return (

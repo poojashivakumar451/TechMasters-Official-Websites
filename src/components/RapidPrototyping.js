@@ -1,5 +1,5 @@
 import React from 'react';
-import { ArrowLeft, Rocket, Zap, Sliders, Layers, Monitor, Code, Database, Share2, ClipboardCheck, Sparkles, Layout } from 'lucide-react';
+import { ArrowLeft, Zap, Sliders, Layers, Monitor, Code, Database, Share2, ClipboardCheck, Sparkles, Layout } from 'lucide-react';
 
 const RapidPrototyping = () => {
   const handleBack = () => {

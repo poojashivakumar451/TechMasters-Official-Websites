@@ -457,10 +457,13 @@ const Courses = ({ adminCourses = [] }) => {
     };
 
     // Add admin-added courses with rich fallbacks (only accepted ones)
-    adminCourses.filter(c => c.status === 'accepted').forEach(course => {
-      baseData[course.name] = {
+    const extraCourses = Array.isArray(adminCourses) ? adminCourses : [];
+    extraCourses.filter(c => c.status === 'accepted').forEach(course => {
+      const displayPrice = course.price ? (course.price.toString().startsWith('₹') ? course.price : `₹${parseFloat(course.price).toLocaleString()}`) : '₹TBD';
+      
+      baseData[course.title] = {
         duration: course.duration,
-        fees: course.fees,
+        fees: displayPrice,
         definition: course.description,
         softwareRequirements: ['Standard IDE', 'Postman', 'Git & GitHub', 'Terminal'],
         syllabus: [
@@ -469,7 +472,7 @@ const Courses = ({ adminCourses = [] }) => {
           { module: "Module 3", title: "Testing & Scalability", topics: ["Unit Testing", "Performance Optimization", "Production Ready Deployment"] }
         ],
         projects: [
-          { title: `${course.name} Professional Capstone`, desc: `A complete industry-grade implementation of ${course.name} featuring modern standards.` },
+          { title: `${course.title} Professional Capstone`, desc: `A complete industry-grade implementation of ${course.title} featuring modern standards.` },
           { title: "Industrial Case Study", desc: "Solving real-world organizational challenges using learned concepts." }
         ]
       };

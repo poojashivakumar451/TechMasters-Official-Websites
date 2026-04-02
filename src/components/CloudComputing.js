@@ -1,5 +1,5 @@
 import React from 'react';
-import { ArrowLeft, Cpu, Cloud, Layers, Box, Globe, ShieldCheck, Zap, Monitor, Activity, Terminal } from 'lucide-react';
+import { ArrowLeft, Cpu, Cloud, Layers, Box, Globe, ShieldCheck } from 'lucide-react';
 
 const CloudComputing = () => {
   const handleBack = () => {

@@ -1,5 +1,5 @@
 import React from 'react';
-import { ArrowLeft, Users, Share2, Lightbulb, MessageSquare, Briefcase, Code, ShieldCheck, Presentation, Target, Zap, GraduationCap } from 'lucide-react';
+import { ArrowLeft, Users, Share2, Lightbulb, MessageSquare, Code, ShieldCheck, Presentation, Target, Zap, GraduationCap } from 'lucide-react';
 
 const TeamCollaboration = () => {
   const handleBack = () => {

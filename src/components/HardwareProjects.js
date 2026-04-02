@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ArrowLeft, BookOpen, Cpu, Layers, Monitor, CheckCircle, Globe, ShieldCheck, Zap } from 'lucide-react';
+import { ArrowLeft, BookOpen, Cpu, Layers, Monitor, CheckCircle, Globe, ShieldCheck } from 'lucide-react';
 
 const HardwareProjects = () => {
   const [selectedProject, setSelectedProject] = useState(null);
