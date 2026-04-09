@@ -1,0 +1,218 @@
+07a0b70 Some changes made
+ backend/.env                                       |   13 +
+ backend/.idea/.gitignore                           |    5 +
+ backend/.idea/backend.iml                          |   10 +
+ .../.idea/inspectionProfiles/profiles_settings.xml |    6 +
+ backend/.idea/misc.xml                             |    4 +
+ backend/.idea/modules.xml                          |    8 +
+ backend/Dockerfile                                 |    8 +
+ backend/certificates/__init__.py                   |    0
+ .../__pycache__/__init__.cpython-313.pyc           |  Bin 0 -> 191 bytes
+ .../certificates/__pycache__/admin.cpython-313.pyc |  Bin 0 -> 371 bytes
+ .../__pycache__/models.cpython-313.pyc             |  Bin 0 -> 1485 bytes
+ .../__pycache__/serializers.cpython-313.pyc        |  Bin 0 -> 826 bytes
+ .../certificates/__pycache__/urls.cpython-313.pyc  |  Bin 0 -> 581 bytes
+ .../certificates/__pycache__/views.cpython-313.pyc |  Bin 0 -> 2574 bytes
+ backend/certificates/admin.py                      |    3 +
+ backend/certificates/migrations/0001_initial.py    |   24 +
+ backend/certificates/migrations/0002_initial.py    |   22 +
+ backend/certificates/migrations/0003_initial.py    |   23 +
+ backend/certificates/migrations/__init__.py        |    0
+ .../__pycache__/0001_initial.cpython-313.pyc       |  Bin 0 -> 1246 bytes
+ .../__pycache__/0002_initial.cpython-313.pyc       |  Bin 0 -> 1079 bytes
+ .../__pycache__/0003_initial.cpython-313.pyc       |  Bin 0 -> 1236 bytes
+ .../__pycache__/__init__.cpython-313.pyc           |  Bin 0 -> 202 bytes
+ backend/certificates/models.py                     |   14 +
+ backend/certificates/serializers.py                |    7 +
+ backend/certificates/urls.py                       |   10 +
+ backend/certificates/views.py                      |   25 +
+ backend/courses/__init__.py                        |    0
+ .../courses/__pycache__/__init__.cpython-313.pyc   |  Bin 0 -> 186 bytes
+ backend/courses/__pycache__/admin.cpython-313.pyc  |  Bin 0 -> 2061 bytes
+ backend/courses/__pycache__/models.cpython-313.pyc |  Bin 0 -> 6097 bytes
+ .../__pycache__/serializers.cpython-313.pyc        |  Bin 0 -> 3524 bytes
+ backend/courses/__pycache__/urls.cpython-313.pyc   |  Bin 0 -> 671 bytes
+ backend/courses/__pycache__/views.cpython-313.pyc  |  Bin 0 -> 9253 bytes
+ backend/courses/admin.py                           |   25 +
+ .../__pycache__/populate_lessons.cpython-313.pyc   |  Bin 0 -> 4620 bytes
+ .../management/commands/populate_lessons.py        |   83 +
+ backend/courses/migrations/0001_initial.py         |   36 +
+ backend/courses/migrations/0002_initial.py         |   23 +
+ ..._location_course_mode_course_status_and_more.py |   73 +
+ ...slug_enrollment_progress_percentage_and_more.py |   57 +
+ backend/courses/migrations/__init__.py             |    0
+ .../__pycache__/0001_initial.cpython-313.pyc       |  Bin 0 -> 2029 bytes
+ .../__pycache__/0002_initial.cpython-313.pyc       |  Bin 0 -> 1233 bytes
+ ...rse_mode_course_status_and_more.cpython-313.pyc |  Bin 0 -> 2505 bytes
+ ...nt_progress_percentage_and_more.cpython-313.pyc |  Bin 0 -> 3189 bytes
+ .../__pycache__/__init__.cpython-313.pyc           |  Bin 0 -> 197 bytes
+ backend/courses/models.py                          |   88 +
+ backend/courses/serializers.py                     |   48 +
+ backend/courses/urls.py                            |   11 +
+ backend/courses/views.py                           |  122 ++
+ backend/create_super.py                            |   14 +
+ backend/create_techmasters_admin.py                |   24 +
+ backend/docker-compose.yml                         |   32 +
+ backend/enquiries/__init__.py                      |    0
+ .../enquiries/__pycache__/__init__.cpython-313.pyc |  Bin 0 -> 188 bytes
+ .../enquiries/__pycache__/admin.cpython-313.pyc    |  Bin 0 -> 364 bytes
+ .../enquiries/__pycache__/models.cpython-313.pyc   |  Bin 0 -> 1259 bytes
+ .../__pycache__/serializers.cpython-313.pyc        |  Bin 0 -> 811 bytes
+ backend/enquiries/__pycache__/urls.cpython-313.pyc |  Bin 0 -> 569 bytes
+ .../enquiries/__pycache__/views.cpython-313.pyc    |  Bin 0 -> 2221 bytes
+ backend/enquiries/admin.py                         |    3 +
+ backend/enquiries/migrations/0001_initial.py       |   26 +
+ backend/enquiries/migrations/__init__.py           |    0
+ .../__pycache__/0001_initial.cpython-313.pyc       |  Bin 0 -> 1454 bytes
+ .../__pycache__/__init__.cpython-313.pyc           |  Bin 0 -> 199 bytes
+ backend/enquiries/models.py                        |   17 +
+ backend/enquiries/serializers.py                   |    7 +
+ backend/enquiries/urls.py                          |   10 +
+ backend/enquiries/views.py                         |   36 +
+ backend/error.log                                  |  Bin 0 -> 5786 bytes
+ backend/manage.py                                  |   17 +
+ backend/payments/__init__.py                       |    0
+ .../payments/__pycache__/__init__.cpython-313.pyc  |  Bin 0 -> 187 bytes
+ backend/payments/__pycache__/admin.cpython-313.pyc |  Bin 0 -> 363 bytes
+ .../payments/__pycache__/models.cpython-313.pyc    |  Bin 0 -> 1688 bytes
+ .../__pycache__/serializers.cpython-313.pyc        |  Bin 0 -> 810 bytes
+ backend/payments/__pycache__/urls.cpython-313.pyc  |  Bin 0 -> 568 bytes
+ backend/payments/__pycache__/views.cpython-313.pyc |  Bin 0 -> 3824 bytes
+ backend/payments/admin.py                          |    3 +
+ backend/payments/migrations/0001_initial.py        |   28 +
+ backend/payments/migrations/0002_initial.py        |   23 +
+ backend/payments/migrations/__init__.py            |    0
+ .../__pycache__/0001_initial.cpython-313.pyc       |  Bin 0 -> 1802 bytes
+ .../__pycache__/0002_initial.cpython-313.pyc       |  Bin 0 -> 1224 bytes
+ .../__pycache__/__init__.cpython-313.pyc           |  Bin 0 -> 198 bytes
+ backend/payments/models.py                         |   20 +
+ backend/payments/serializers.py                    |    7 +
+ backend/payments/urls.py                           |   10 +
+ backend/payments/views.py                          |   39 +
+ backend/requirements.txt                           |    9 +
+ backend/seed_data.py                               |   49 +
+ backend/techmasters_backend/__init__.py            |    3 +
+ .../__pycache__/__init__.cpython-313.pyc           |  Bin 0 -> 351 bytes
+ .../__pycache__/settings.cpython-313.pyc           |  Bin 0 -> 4153 bytes
+ .../__pycache__/urls.cpython-313.pyc               |  Bin 0 -> 1487 bytes
+ .../__pycache__/wsgi.cpython-313.pyc               |  Bin 0 -> 461 bytes
+ backend/techmasters_backend/asgi.py                |    4 +
+ backend/techmasters_backend/settings.py            |  108 +
+ backend/techmasters_backend/urls.py                |   31 +
+ backend/techmasters_backend/wsgi.py                |    4 +
+ backend/users/__init__.py                          |    0
+ backend/users/__pycache__/__init__.cpython-313.pyc |  Bin 0 -> 184 bytes
+ backend/users/__pycache__/admin.cpython-313.pyc    |  Bin 0 -> 357 bytes
+ backend/users/__pycache__/models.cpython-313.pyc   |  Bin 0 -> 1018 bytes
+ .../users/__pycache__/permissions.cpython-313.pyc  |  Bin 0 -> 919 bytes
+ .../users/__pycache__/serializers.cpython-313.pyc  |  Bin 0 -> 2231 bytes
+ backend/users/__pycache__/urls.cpython-313.pyc     |  Bin 0 -> 922 bytes
+ backend/users/__pycache__/views.cpython-313.pyc    |  Bin 0 -> 3068 bytes
+ backend/users/admin.py                             |    3 +
+ backend/users/migrations/0001_initial.py           |   46 +
+ backend/users/migrations/__init__.py               |    0
+ .../__pycache__/0001_initial.cpython-313.pyc       |  Bin 0 -> 3818 bytes
+ .../__pycache__/__init__.cpython-313.pyc           |  Bin 0 -> 195 bytes
+ backend/users/models.py                            |   13 +
+ backend/users/permissions.py                       |    5 +
+ backend/users/serializers.py                       |   28 +
+ backend/users/urls.py                              |   11 +
+ backend/users/views.py                             |   35 +
+ eslint_report.txt                                  |   28 +
+ lint_results.txt                                   |  Bin 0 -> 3542 bytes
+ package-lock.json                                  |   43 +
+ package.json                                       |    1 +
+ src/App.css                                        |  122 +-
+ src/App.js                                         |  117 +-
+ src/components/CloudComputing.js                   |    2 +-
+ src/components/CoursePlayer.js                     |  358 ++++
+ src/components/Courses.js                          |   11 +-
+ src/components/Dashboard.js                        | 2109 +++++++-------------
+ src/components/Enroll.js                           |  374 ++--
+ src/components/HardwareProjects.js                 |    2 +-
+ src/components/IotProjects.js                      |    2 +-
+ src/components/Login.js                            |  173 +-
+ src/components/Navbar.css                          |   36 +-
+ src/components/Navbar.js                           |   50 +-
+ src/components/ProblemStatements.js                |    2 +-
+ src/components/RapidPrototyping.js                 |    2 +-
+ src/components/SoftwareProjects.js                 |    2 +-
+ src/components/StudentDashboard.js                 |  273 +++
+ src/components/TeamCollaboration.js                |    2 +-
+ src/utils/certificateGenerator.js                  |  137 ++
+ 141 files changed, 3502 insertions(+), 1757 deletions(-)
+feead30 Updated Website
+ public/gallery/basavakalyan-eng/1.jpg | Bin 0 -> 286477 bytes
+ public/gallery/basavakalyan-eng/2.jpg | Bin 0 -> 290542 bytes
+ public/gallery/basavakalyan-eng/3.jpg | Bin 0 -> 313294 bytes
+ public/gallery/basavakalyan-eng/4.jpg | Bin 0 -> 292522 bytes
+ public/gallery/basavakalyan-eng/5.png | Bin 0 -> 943836 bytes
+ public/gallery/basavakalyan/1.jpg     | Bin 0 -> 286477 bytes
+ public/gallery/basavakalyan/2.jpg     | Bin 0 -> 290542 bytes
+ public/gallery/basavakalyan/3.jpg     | Bin 0 -> 313294 bytes
+ public/gallery/basavakalyan/4.jpg     | Bin 0 -> 292522 bytes
+ public/gallery/basavakalyan/5.jpg     | Bin 0 -> 290542 bytes
+ public/gallery/basavakalyan/6.jpg     | Bin 0 -> 341694 bytes
+ public/gallery/gov-eng/1.png          | Bin 0 -> 853086 bytes
+ public/gallery/gov-eng/2.png          | Bin 0 -> 876141 bytes
+ public/gallery/gov-eng/3.png          | Bin 0 -> 909555 bytes
+ public/gallery/gov-eng/4.png          | Bin 0 -> 930052 bytes
+ public/gallery/gov-eng/5.png          | Bin 0 -> 800654 bytes
+ src/components/Courses.js             |  26 ++--
+ src/components/Dashboard.js           |  68 ++++-----
+ src/components/Gallery.js             | 269 +++++++++++++++++++++++++++++++++-
+ 19 files changed, 300 insertions(+), 63 deletions(-)
+055d7e2 updated website
+ public/hero-1.jpg            |  Bin 0 -> 290542 bytes
+ public/hero-2.jpg            |  Bin 0 -> 341694 bytes
+ public/hero-3.jpg            |  Bin 0 -> 876907 bytes
+ public/hero-4.jpg            |  Bin 0 -> 651944 bytes
+ public/hero-5.jpg            |  Bin 0 -> 251462 bytes
+ src/App.css                  |   29 +-
+ src/App.js                   |  137 ++--
+ src/components/About.js      |    2 +-
+ src/components/Courses.js    |   27 +-
+ src/components/Dashboard.js  | 1690 ++++++++++++++++++++++++++++++++++++++----
+ src/components/Footer.css    |   77 +-
+ src/components/Footer.js     |   75 +-
+ src/components/Home.css      |  551 ++++----------
+ src/components/Home.js       |   28 +-
+ src/components/Innovation.js |    6 +-
+ src/components/Navbar.css    |  131 ++--
+ src/components/Navbar.js     |    5 +-
+ src/components/Service.js    |   85 +--
+ 18 files changed, 2014 insertions(+), 829 deletions(-)
+6e9a81a Updatedwebsite
+ src/components/Footer.css | 218 +++++++++++++++++++++++++++++++++++++++++++++-
+ src/components/Footer.js  | 201 +++++++++++++++++++++++++++++-------------
+ 2 files changed, 359 insertions(+), 60 deletions(-)
+4a3a922 Updated website content
+ src/components/Home.css |  50 ++++++--------
+ src/components/Home.js  | 177 ++++++++++--------------------------------------
+ 2 files changed, 57 insertions(+), 170 deletions(-)
+d5e5eb6 Updated website content
+ src/components/Home.css | 265 ++++++++++++++++++++++++++++++++++++++++++++++++
+ src/components/Home.js  | 146 ++++++++++++++++++++++----
+ 2 files changed, 389 insertions(+), 22 deletions(-)
+cc9525d Updated website content
+ src/App.css                       | 136 +++++++++++++++++++++++++++++++-
+ src/components/Home.css           | 162 ++++++++++----------------------------
+ src/components/Home.js            |  22 ------
+ src/components/JavaFullStack.js   |   2 +-
+ src/components/MernDevelopment.js |   2 +-
+ src/components/Navbar.css         |  76 ++++++++++++++----
+ src/components/PythonFullStack.js |   2 +-
+ 7 files changed, 241 insertions(+), 161 deletions(-)
+e57acc5 Fix netlify deployment and clean up unused imports
+ netlify.toml | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+d42a80f update netlify config
+ netlify.toml                      | 2 +-
+ public/_redirects                 | 1 +
+ src/components/JavaFullStack.js   | 2 +-
+ src/components/MernDevelopment.js | 2 +-
+ src/components/PythonFullStack.js | 2 +-
+ 5 files changed, 5 insertions(+), 4 deletions(-)
+1c507f1 fix netlify build
+ netlify.toml | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)

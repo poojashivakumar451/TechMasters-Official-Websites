@@ -28,20 +28,9 @@ const Navbar = () => {
   }, [location.pathname]);
 
   const isAdminLoggedIn = localStorage.getItem('isAdminAuthenticated') === 'true';
-  const isStudentLoggedIn = !!localStorage.getItem('accessToken') && !isAdminLoggedIn;
 
   const handleAdminLogin = () => {
-    if (isAdminLoggedIn) {
-      navigate('/dashboard');
-      return;
-    }
-    const pin = prompt("Please enter Admin Access PIN (Standard: 102023):");
-    if (pin === "102023") {
-      localStorage.setItem('isAdminAuthenticated', 'true');
-      navigate('/dashboard');
-    } else {
-      alert("Invalid Enrollment PIN. Access Denied.");
-    }
+    navigate('/admin');
   };
 
   const navLinks = [
@@ -79,25 +68,14 @@ const Navbar = () => {
           </ul>
           
           <div className="nav-actions">
-            {!isAdminLoggedIn && !isStudentLoggedIn && (
-              <>
-                <button className="login-btn" onClick={handleAdminLogin}>
-                   <LogIn size={18} /> Admin Console
-                </button>
-                <NavLink to="/login" className="login-btn">
-                   Student Login
-                </NavLink>
-              </>
+            {!isAdminLoggedIn && (
+              <button className="login-btn" onClick={handleAdminLogin}>
+                 <LogIn size={18} /> Admin
+              </button>
             )}
 
             {isAdminLoggedIn && (
               <button className="login-btn" onClick={() => navigate('/dashboard')}>
-                 <Layout size={18} /> Admin Console
-              </button>
-            )}
-
-            {isStudentLoggedIn && (
-              <button className="login-btn" onClick={() => navigate('/student-dashboard')}>
                  <Layout size={18} /> Dashboard
               </button>
             )}

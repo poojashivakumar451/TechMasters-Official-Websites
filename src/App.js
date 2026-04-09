@@ -7,9 +7,7 @@ import About from './components/About';
 import Academy from './components/Academy';
 import Courses from './components/Courses';
 import Dashboard from './components/Dashboard';
-import StudentDashboard from './components/StudentDashboard';
-import CoursePlayer from './components/CoursePlayer';
-import Login from './components/Login';
+import AdminLogin from './components/AdminLogin';
 import Enroll from './components/Enroll';
 import Gallery from './components/Gallery';
 import Service from './components/Service';
@@ -41,34 +39,25 @@ import './App.css';
 
 const AdminRoute = ({ children }) => {
   const isAdmin = localStorage.getItem('isAdminAuthenticated') === 'true';
-  return isAdmin ? children : <Navigate to="/login" />;
-};
-
-const StudentRoute = ({ children }) => {
-  const hasToken = !!localStorage.getItem('accessToken');
-  return hasToken ? children : <Navigate to="/login" />;
+  return isAdmin ? children : <Navigate to="/admin" />;
 };
 
 const LayoutWrapper = ({ children, enrollments, adminCourses, setAdminCourses, setEnrollments, addEnrollment }) => {
   const location = useLocation();
-  const isLMSView = location.pathname === '/dashboard' || 
-                    location.pathname === '/student-dashboard' || 
-                    location.pathname.includes('/play');
+  const isDashboardView = location.pathname === '/dashboard';
 
   return (
     <div className="app-container">
-      {!isLMSView && <Navbar />}
-      <main className={isLMSView ? 'dashboard-mode' : 'main-content'}>
+      {!isDashboardView && <Navbar />}
+      <main className={isDashboardView ? 'dashboard-mode' : 'main-content'}>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/home" element={<Home />} />
           <Route path="/about" element={<About />} />
           <Route path="/academy" element={<Academy />} />
           <Route path="/courses" element={<Courses adminCourses={adminCourses} />} />
-          <Route path="/admin" element={<Navigate to="/dashboard" />} />
-          <Route path="/login" element={<Login />} />
+          <Route path="/admin" element={<AdminLogin />} />
           
-          {/* Admin Routes */}
           <Route 
             path="/dashboard" 
             element={
@@ -76,33 +65,14 @@ const LayoutWrapper = ({ children, enrollments, adminCourses, setAdminCourses, s
                 <Dashboard 
                   adminCourses={adminCourses} 
                   enrollments={enrollments}
-                  setEnrollments={setEnrollments}
                 />
               </AdminRoute>
             } 
           />
 
-          {/* Student LMS Routes */}
-          <Route 
-            path="/student-dashboard" 
-            element={
-              <StudentRoute>
-                <StudentDashboard />
-              </StudentRoute>
-            } 
-          />
-          <Route 
-            path="/course/:slug/play" 
-            element={
-              <StudentRoute>
-                <CoursePlayer />
-              </StudentRoute>
-            } 
-          />
-
           <Route 
             path="/enroll" 
-            element={<Enroll addEnrollment={addEnrollment} />} 
+            element={<Enroll addEnrollment={addEnrollment} adminCourses={adminCourses} />} 
           />
           <Route path="/gallery" element={<Gallery />} />
           <Route path="/services" element={<Service />} />
@@ -132,7 +102,7 @@ const LayoutWrapper = ({ children, enrollments, adminCourses, setAdminCourses, s
           <Route path="/services/innovation" element={<Innovation />} />
         </Routes>
       </main>
-      {!isLMSView && <Footer />}
+      {!isDashboardView && <Footer />}
     </div>
   );
 };
@@ -146,7 +116,10 @@ function App() {
     const token = localStorage.getItem('accessToken');
     
     try {
-      const coursesRes = await fetch('http://localhost:8000/api/courses/');
+      const headers = { 'Content-Type': 'application/json' };
+      if (token) headers['Authorization'] = `Bearer ${token}`;
+
+      const coursesRes = await fetch('http://localhost:8000/api/courses/', { headers });
       if (coursesRes.ok) {
         const coursesData = await coursesRes.json();
         const coursesArray = Array.isArray(coursesData) ? coursesData : (coursesData.results || []);
@@ -160,16 +133,21 @@ function App() {
         if (enrollRes.ok) {
           const enrollData = await enrollRes.json();
           const enrollArray = Array.isArray(enrollData) ? enrollData : (enrollData.results || []);
-          const formattedEnrollments = enrollArray.map(e => ({
-            ...e, id: e.id,
-            name: (e.student_details?.first_name || e.student_details?.username || 'Student'),
-            email: e.student_details?.email,
-            course: e.course_details?.title || 'Unknown Course',
-            status: e.status, paid: e.paid, paidAmount: e.paid_amount,
-            totalFee: e.total_fee, startDate: e.start_date, endDate: e.end_date,
-            attendance: e.attendance, projectStatus: e.project_status,
-            enrolled_on: e.enrolled_on
-          }));
+          const formattedEnrollments = enrollArray.map(e => {
+            const sd = e.student_details || {};
+            const fullName = [sd.first_name, sd.last_name].filter(Boolean).join(' ') || sd.username || 'Unknown Student';
+            return {
+              ...e,
+              id: e.id,
+              name: fullName,
+              email: sd.email || '',
+              phone: sd.phone || '',
+              course: e.course_details?.title || 'Unknown Course',
+              status: e.status,
+              enrolled_on: e.enrolled_on,
+            };
+          });
+
           setEnrollments(formattedEnrollments);
         }
       }

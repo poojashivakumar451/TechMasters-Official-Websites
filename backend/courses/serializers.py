@@ -43,6 +43,7 @@ class EnrollmentSerializer(serializers.ModelSerializer):
             'id', 'student', 'course', 'enrolled_on', 'status',
             'attendance', 'project_status', 'start_date', 'end_date',
             'progress_percentage', 'paid', 'paid_amount', 'total_fee', 'date_paid',
+            'certificate_unlocked',
             'course_details', 'student_details', 'lesson_progress'
         ]
 

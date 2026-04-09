@@ -174,7 +174,7 @@ const Service = () => {
           gap: 10px;
         }
         .srv-tag {
-          background: #eff6ff;
+          background: white;
           color: #3b82f6;
           border: 1px solid #bfdbfe;
           padding: 6px 12px;
@@ -183,7 +183,7 @@ const Service = () => {
           font-weight: 700;
           letter-spacing: 0.5px;
           cursor: pointer;
-          transition: all 0.2s;
+          transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
         }
         .srv-tag:hover {
           background: #3b82f6;

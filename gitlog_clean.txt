@@ -1,0 +1,13 @@
+07a0b70 Some changes made
+feead30 Updated Website
+055d7e2 updated website
+6e9a81a Updatedwebsite
+4a3a922 Updated website content
+d5e5eb6 Updated website content
+cc9525d Updated website content
+e57acc5 Fix netlify deployment and clean up unused imports
+d42a80f update netlify config
+1c507f1 fix netlify build
+d01a3dc fix publish directory
+7433226 Fix Netlify deployment
+393841f Initial commit

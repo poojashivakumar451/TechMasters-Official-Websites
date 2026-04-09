@@ -70,6 +70,10 @@ class Enrollment(models.Model):
     paid_amount = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
     total_fee = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
     date_paid = models.DateTimeField(null=True, blank=True)
+    
+    # certificate control
+    certificate_unlocked = models.BooleanField(default=False)  # Admin can manually unlock
+
 
     def __str__(self):
         return f"{self.student.username} - {self.course.title}"
